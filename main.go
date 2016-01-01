@@ -31,7 +31,8 @@ func dice() {
 }
 
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
+// 3までの数字をランダムに返す
 func random()(int) {
     rand.Seed(time.Now().UnixNano())
-    return rand.Intn(15)
+    return rand.Intn(4)
 }
