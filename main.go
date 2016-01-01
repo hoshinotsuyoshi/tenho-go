@@ -23,7 +23,9 @@ func main() {
     // 終わるまで待つ
     <- sleep1_finished
 
-    dice()
+    // 136枚の中から14枚返したい
+    //dice()
+    sub()
 }
 
 func dice() {
@@ -35,9 +37,39 @@ func rand_hai()(string){
     return string(a + dice34())
 }
 
+func rand_hai_14()(string){
+    a := 126976 // ton https://codepoints.net/U+1F000
+    return string(a + dice34())
+}
+
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
 // 0-33の内からランダムに1つ返す
 func dice34()(int) {
     rand.Seed(time.Now().UnixNano())
     return rand.Intn(34)
+}
+
+
+// http://d.hatena.ne.jp/hake/20150930/p1
+func shuffle(list []int){
+	for i := len(list); i > 1; i-- {
+		j := rand.Intn(i)          // 0　.. i-1 の乱数発生
+		list[i - 1], list[j] = list[j], list[i - 1]
+	}
+}
+
+func sub() {
+	rand.Seed(time.Now().UnixNano())
+
+	// データ要素数指定、および初期データ作成
+	size := 10
+	list := make([]int, size, size)
+	for i := 0; i < size; i++ { list[i] = i }
+
+	// シャッフル
+	shuffle(list)
+
+	for _, d := range list {
+		log.Println(d)
+	}
 }
