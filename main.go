@@ -31,8 +31,9 @@ func dice() {
 }
 
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
-// 3までの数字をランダムに返す
-func random()(int) {
+// 東西南北をランダムに返す
+func random()(string) {
+    a := []string{"ton", "nan", "sha", "pe"}
     rand.Seed(time.Now().UnixNano())
-    return rand.Intn(4)
+    return a[rand.Intn(4)]
 }
