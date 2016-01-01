@@ -24,31 +24,8 @@ func main() {
     <- sleep1_finished
 
     // 136枚の中から14枚返したい
-    //dice()
     sub()
 }
-
-func dice() {
-    log.Printf("%v", rand_hai())
-}
-
-func rand_hai()(string){
-    a := 126976 // ton https://codepoints.net/U+1F000
-    return string(a + dice34())
-}
-
-func rand_hai_14()(string){
-    a := 126976 // ton https://codepoints.net/U+1F000
-    return string(a + dice34())
-}
-
-// http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
-// 0-33の内からランダムに1つ返す
-func dice34()(int) {
-    rand.Seed(time.Now().UnixNano())
-    return rand.Intn(34)
-}
-
 
 // http://d.hatena.ne.jp/hake/20150930/p1
 func shuffle(list []int){
