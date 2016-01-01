@@ -62,14 +62,14 @@ func sub() {
 	rand.Seed(time.Now().UnixNano())
 
 	// データ要素数指定、および初期データ作成
-	size := 10
+	size := 136
 	list := make([]int, size, size)
 	for i := 0; i < size; i++ { list[i] = i }
 
 	// シャッフル
 	shuffle(list)
 
-	for _, d := range list {
-		log.Println(d)
+	for j := 0; j < 14; j++ {
+		log.Println(list[j])
 	}
 }
