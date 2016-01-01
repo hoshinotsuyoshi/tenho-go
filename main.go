@@ -24,7 +24,10 @@ func main() {
     <- sleep1_finished
 
     // 136枚の中から14枚返したい
-    sub()
+    list := sub()
+    for j := 0; j < 14; j++ {
+        log.Println(list[j])
+    }
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
@@ -35,7 +38,7 @@ func shuffle(list []int){
 	}
 }
 
-func sub() {
+func sub()([]int) {
 	rand.Seed(time.Now().UnixNano())
 
 	// データ要素数指定、および初期データ作成
@@ -46,7 +49,5 @@ func sub() {
 	// シャッフル
 	shuffle(list)
 
-	for j := 0; j < 14; j++ {
-		log.Println(list[j])
-	}
+  return list[0:14]
 }
