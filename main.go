@@ -13,9 +13,9 @@ func main() {
     sleep1_finished := make(chan bool)
 
     go func() {
-        // 1秒かかるコマンド
+        // 0.2秒かかるコマンド
         log.Print("sleep1 started.")
-        time.Sleep(1 * time.Second)
+        time.Sleep(200 * 1000 * 1000 * time.Nanosecond)
         log.Print("sleep1 finished.")
         sleep1_finished <- true
     }()
