@@ -126,6 +126,7 @@ func is_chitoitsu(list []int) bool {
 	l := list
 
 	for _, v := range l {
+		// 4で割ると本来のインデックスに
 		v = v / 4
 		count, ok := c[v]
 		if ok {
