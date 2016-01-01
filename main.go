@@ -1,5 +1,3 @@
-// http://qiita.com/suin/items/82ecb6f63ff4104d4f5d
-
 package main
 
 import (
@@ -13,8 +11,6 @@ func main() {
 
     // チャネル
     sleep1_finished := make(chan bool)
-    sleep2_finished := make(chan bool)
-    sleep3_finished := make(chan bool)
 
     go func() {
         // 1秒かかるコマンド
@@ -26,29 +22,7 @@ func main() {
         sleep1_finished <- true
     }()
 
-    go func() {
-        // 2秒かかるコマンド
-        log.Print("sleep2 started.")
-        time.Sleep(2 * time.Second)
-        log.Print("sleep2 finished.")
-        a++
-        log.Printf("a : %v", a)
-        sleep2_finished <- true
-    }()
-
-    go func() {
-        // 3秒かかるコマンド
-        log.Print("sleep3 started.")
-        time.Sleep(3 * time.Second)
-        log.Print("sleep3 finished.")
-        a++
-        log.Printf("a : %v", a)
-        sleep3_finished <- true
-    }()
-
     // 終わるまで待つ
-    <- sleep3_finished
-    <- sleep2_finished
     <- sleep1_finished
 
     log.Print("all finished.")
