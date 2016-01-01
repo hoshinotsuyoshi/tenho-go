@@ -27,13 +27,13 @@ func main() {
 }
 
 func dice() {
-    log.Printf("%v", random())
+    log.Printf("%v", string(random()))
 }
 
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
 // 34枚の内からランダムに1枚返す
-func random()(string) {
-    a := 126976 // ton
+func random()(int) {
+    a := 126976 // ton https://codepoints.net/U+1F000
     rand.Seed(time.Now().UnixNano())
-    return string(a + rand.Intn(34))
+    return a + rand.Intn(34)
 }
