@@ -85,10 +85,26 @@ func string_output(list []int) {
 // 字マンソーピンのリストをつくる
 func solve(list []int) {
 	matrix := [][]int{{}, {}, {}, {}}
-	a := 0
-	switch {
-	case a == 0:
-		log.Println("a")
+	for _, value := range list {
+		group(matrix, value)
 	}
 	log.Println(matrix)
+}
+
+// スート分類してくれる
+func group(m [][]int, i int) {
+	switch {
+	case i < 7:
+		m[0] = append(m[0], i)
+		log.Println(i)
+	case i < 7+(9*1):
+		m[1] = append(m[1], i-7)
+		log.Println(i)
+	case i < 7+(9*2):
+		m[2] = append(m[2], i-7-(9*1))
+		log.Println(i)
+	case i < 7+(9*3):
+		m[3] = append(m[3], i-7-(9*2))
+		log.Println(i)
+	}
 }
