@@ -49,5 +49,5 @@ func sub()([]int) {
 	// シャッフル
 	shuffle(list)
 
-  return list[0:14]
+  return list
 }
