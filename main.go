@@ -22,5 +22,9 @@ func main() {
     // 終わるまで待つ
     <- sleep1_finished
 
+    dice()
+}
+
+func dice() {
     log.Print("all finished.")
 }
