@@ -82,8 +82,13 @@ func string_output(list []int) {
 }
 
 // solve
-// マンピンソー字のリストをつくる
+// 字マンソーピンのリストをつくる
 func solve(list []int) {
-	matrix := [][]int{}
+	matrix := [][]int{{}, {}, {}, {}}
+	a := 0
+	switch {
+	case a == 0:
+		log.Println("a")
+	}
 	log.Println(matrix)
 }
