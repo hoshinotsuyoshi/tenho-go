@@ -126,6 +126,7 @@ func is_chitoitsu(list []int) bool {
 	l := list
 
 	for _, v := range l {
+		v = v / 4
 		count, ok := c[v]
 		if ok {
 			if count == 1 {
