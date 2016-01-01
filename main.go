@@ -31,9 +31,9 @@ func dice() {
 }
 
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
-// 東西南北をランダムに返す
+// 34枚の内からランダムに1枚返す
 func random()(string) {
     a := 126976 // ton
     rand.Seed(time.Now().UnixNano())
-    return string(a + rand.Intn(4))
+    return string(a + rand.Intn(34))
 }
