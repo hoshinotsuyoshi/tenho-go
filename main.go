@@ -7,6 +7,13 @@ import (
 )
 
 func main() {
+	aa := []int{101, 100, 70, 70, 60, 60, 50, 50, 40, 40, 30, 30, 20, 20}
+	if is_chitoitsu(aa) {
+		log.Println("a")
+	} else {
+		log.Println("b")
+	}
+	return
 
 	/*
 		log.Print("started.")
@@ -109,4 +116,31 @@ func group(m [][]int, j int) {
 		m[3] = append(m[3], i-7-(9*2))
 		log.Println(i)
 	}
+}
+
+func is_chitoitsu(list []int) bool {
+	//カウンタ
+	c := map[int]int{}
+
+	//コピー
+	l := list
+
+	for _, v := range l {
+		count, ok := c[v]
+		if ok {
+			if count == 1 {
+				c[v] = 2
+			} else {
+				// c[v] == 2
+				return false
+			}
+		} else {
+			c[v] = 1
+		}
+		//8個チェック
+		if len(c) >= 8 {
+			return false
+		}
+	}
+	return true
 }
