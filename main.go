@@ -28,6 +28,7 @@ func main() {
 
     // 出力
     digit_output(list)
+    string_output(list)
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
@@ -52,8 +53,18 @@ func shuffled_cards()([]int) {
   return list
 }
 
+// 単純出力
 func digit_output(list []int)(){
     for j := 0; j < 14; j++ {
         log.Println(list[j])
+    }
+}
+
+// 牌の出力
+func string_output(list []int)(){
+    for j := 0; j < 14; j++ {
+        // 126976 is 'ton'
+        // https://codepoints.net/U+1F000
+        log.Print(string(list[j]/4 + 126976))
     }
 }
