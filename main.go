@@ -24,7 +24,7 @@ func main() {
     <- sleep1_finished
 
     // 136枚の中から14枚返したい
-    list := sub()
+    list := shuffled_cards()
     for j := 0; j < 14; j++ {
         log.Println(list[j])
     }
@@ -38,7 +38,7 @@ func shuffle(list []int){
 	}
 }
 
-func sub()([]int) {
+func shuffled_cards()([]int) {
 	rand.Seed(time.Now().UnixNano())
 
 	// データ要素数指定、および初期データ作成
