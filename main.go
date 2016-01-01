@@ -93,6 +93,7 @@ func solve(list []int) {
 
 // スート分類してくれる
 func group(m [][]int, j int) {
+	// 4で割ると本来のインデックスに
 	i := j / 4
 	switch {
 	case i < 7:
