@@ -33,7 +33,7 @@ func dice() {
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
 // 東西南北をランダムに返す
 func random()(string) {
-    a := []string{"ton", "nan", "sha", "pe"}
+    a := 126976 // ton
     rand.Seed(time.Now().UnixNano())
-    return a[rand.Intn(4)]
+    return string(a + rand.Intn(4))
 }
