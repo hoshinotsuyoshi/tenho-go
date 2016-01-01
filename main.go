@@ -2,6 +2,7 @@ package main
 
 import (
     "log"
+    "math/rand"
     "time"
 )
 
@@ -26,5 +27,11 @@ func main() {
 }
 
 func dice() {
-    log.Print("all finished.")
+    log.Printf("%v", random())
+}
+
+// http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
+func random()(int) {
+    rand.Seed(time.Now().UnixNano())
+    return rand.Intn(15)
 }
