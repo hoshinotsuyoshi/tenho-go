@@ -27,13 +27,17 @@ func main() {
 }
 
 func dice() {
-    log.Printf("%v", string(random()))
+    log.Printf("%v", rand_hai())
+}
+
+func rand_hai()(string){
+    a := 126976 // ton https://codepoints.net/U+1F000
+    return string(a + dice34())
 }
 
 // http://qiita.com/cubicdaiya/items/819886c57e9d17e4b019
 // 34枚の内からランダムに1枚返す
-func random()(int) {
-    a := 126976 // ton https://codepoints.net/U+1F000
+func dice34()(int) {
     rand.Seed(time.Now().UnixNano())
-    return a + rand.Intn(34)
+    return rand.Intn(34)
 }
