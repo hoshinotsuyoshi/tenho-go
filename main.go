@@ -7,14 +7,6 @@ import (
 )
 
 func main() {
-	aa := []int{101, 100, 70, 70, 60, 60, 50, 50, 40, 40, 30, 30, 20, 20}
-	if is_chitoitsu(aa) {
-		log.Println("a")
-	} else {
-		log.Println("b")
-	}
-	return
-
 	/*
 		log.Print("started.")
 		// チャネル
@@ -90,12 +82,18 @@ func string_output(list []int) {
 
 // solve
 // 字マンソーピンのリストをつくる
-func solve(list []int) {
+func solve(list []int) bool {
+	if is_chitoitsu(list) {
+		return true
+	}
 	matrix := [][]int{{}, {}, {}, {}}
 	for _, value := range list {
 		group(matrix, value)
 	}
 	log.Println(matrix)
+
+	group_scan(matrix)
+	return false
 }
 
 // スート分類してくれる
@@ -116,6 +114,10 @@ func group(m [][]int, j int) {
 		m[3] = append(m[3], i-7-(9*2))
 		log.Println(i)
 	}
+}
+
+func group_scan(m [][]int) bool {
+	return false
 }
 
 func is_chitoitsu(list []int) bool {
