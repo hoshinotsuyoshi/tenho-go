@@ -30,6 +30,7 @@ func main() {
 
 	// 出力
 	// digit_output(list)
+	solve(list)
 	string_output(list)
 }
 
@@ -78,4 +79,11 @@ func string_output(list []int) {
 		b = append(b, string(32)...)               // ...が必要
 	}
 	log.Print(string(b))
+}
+
+// solve
+// マンピンソー字のリストをつくる
+func solve(list []int) {
+	matrix := [][]int{}
+	log.Println(matrix)
 }
