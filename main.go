@@ -7,8 +7,9 @@ import (
 )
 
 func main() {
-    log.Print("started.")
 
+    /*
+    log.Print("started.")
     // チャネル
     sleep1_finished := make(chan bool)
 
@@ -22,12 +23,13 @@ func main() {
 
     // 終わるまで待つ
     <- sleep1_finished
+		*/
 
     // 136枚の中から14枚返したい
     list := shuffled_cards()
 
     // 出力
-    digit_output(list)
+    // digit_output(list)
     string_output(list)
 }
 
