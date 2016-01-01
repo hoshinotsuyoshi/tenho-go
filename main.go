@@ -25,9 +25,9 @@ func main() {
 
     // 136枚の中から14枚返したい
     list := shuffled_cards()
-    for j := 0; j < 14; j++ {
-        log.Println(list[j])
-    }
+
+    // 出力
+    digit_output(list)
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
@@ -50,4 +50,10 @@ func shuffled_cards()([]int) {
 	shuffle(list)
 
   return list
+}
+
+func digit_output(list []int)(){
+    for j := 0; j < 14; j++ {
+        log.Println(list[j])
+    }
 }
