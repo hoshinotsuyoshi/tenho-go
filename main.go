@@ -55,7 +55,7 @@ func shuffled_cards() []int {
 	// シャッフル
 	shuffle(list)
 
-	return list
+	return list[:14]
 }
 
 // 単純出力
@@ -92,7 +92,8 @@ func solve(list []int) {
 }
 
 // スート分類してくれる
-func group(m [][]int, i int) {
+func group(m [][]int, j int) {
+	i := j / 4
 	switch {
 	case i < 7:
 		m[0] = append(m[0], i)
