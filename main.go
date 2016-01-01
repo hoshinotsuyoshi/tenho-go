@@ -62,9 +62,16 @@ func digit_output(list []int)(){
 
 // 牌の出力
 func string_output(list []int)(){
+    // http://qiita.com/ruiu/items/2bb83b29baeae2433a79
+    // サイズ0、内部バッファの長さ69の[]byteの値を割り当てる
+		b := make([]byte, 0, 70)
+
+		// bに文字列を追加
     for j := 0; j < 14; j++ {
         // 126976 is 'ton'
         // https://codepoints.net/U+1F000
-        log.Print(string(list[j]/4 + 126976))
+		    b = append(b, string(list[j]/4 + 126976)...) // ...が必要
+		    b = append(b, string(32)...) // ...が必要
     }
+		log.Print(string(b))
 }
