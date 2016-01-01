@@ -117,7 +117,28 @@ func group(m [][]int, j int) {
 }
 
 func group_scan(m [][]int) bool {
+	if !validate_mod3(m) {
+		return false
+	}
 	return false
+}
+
+func validate_mod3(m [][]int) bool {
+	//スートのサイズを3で割った時
+	//あまりが2であるすーとグループが1つであること
+	c := 0
+	for _, a := range m {
+		switch len(a) % 3 {
+		case 0:
+			// noop
+		case 1:
+			log.Println("immi")
+			return false
+		case 2:
+			c++
+		}
+	}
+	return c == 1
 }
 
 func is_chitoitsu(list []int) bool {
