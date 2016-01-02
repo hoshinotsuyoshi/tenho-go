@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"math/rand"
+	"sort"
 	"time"
 )
 
@@ -120,7 +121,10 @@ func group_scan(m [][]int) bool {
 	if !validate_mod3(m) {
 		return false
 	}
-	return false
+	if !validate_33332(m) {
+		return false
+	}
+	return true
 }
 
 func validate_mod3(m [][]int) bool {
@@ -139,6 +143,53 @@ func validate_mod3(m [][]int) bool {
 		}
 	}
 	return c == 1
+}
+
+func validate_33332(m [][]int) bool {
+	for _, a := range m {
+		if !validate_suit_group(a) {
+			return false
+		}
+	}
+	return true
+}
+
+func validate_suit_group(a []int) bool {
+	//TODO: implement
+	for _, v := range a {
+		// 4で割ると本来のインデックスに
+		v = v / 4
+	}
+
+	//ソート
+	sort.Ints(a)
+	if len(a)%3 == 2 {
+		//ペアを探す
+		pair_numbers := pairable_numbers(a)
+		//ペア候補がなかったらぬける
+		if len(pair_numbers) == 0 {
+			return false
+		}
+	} else if len(a)%3 == 0 {
+		return true
+	}
+	// 来ないはず
+	return false
+}
+
+func pairable_numbers(sorted []int) []int {
+	//カウンタ
+	retval := []int{}
+	a := 999 // 2つ前
+	b := 999 // 1つ前
+	for _, v := range sorted {
+		if b == v && a != v {
+			retval = append(retval, v)
+		} else {
+			b = v
+		}
+	}
+	return retval
 }
 
 func is_chitoitsu(list []int) bool {
