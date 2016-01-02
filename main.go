@@ -125,16 +125,16 @@ func group(m [][]int, j int) {
 }
 
 func group_scan(m [][]int) bool {
-	if !validate_mod3(m) {
+	if !valid_mod3(m) {
 		return false
 	}
-	if !validate_33332(m) {
+	if !valid_33332(m) {
 		return false
 	}
 	return true
 }
 
-func validate_mod3(m [][]int) bool {
+func valid_mod3(m [][]int) bool {
 	//スートのサイズを3で割った時
 	//あまりが2であるすーとグループが1つであること
 	c := 0
@@ -151,16 +151,16 @@ func validate_mod3(m [][]int) bool {
 	return c == 1
 }
 
-func validate_33332(m [][]int) bool {
+func valid_33332(m [][]int) bool {
 	for i := 0; i < 4; i++ {
-		if !validate_suit_group(m[i], i) {
+		if !valid_suit_group(m[i], i) {
 			return false
 		}
 	}
 	return true
 }
 
-func validate_suit_group(a []int, i int) bool {
+func valid_suit_group(a []int, i int) bool {
 	// 第二引数は字牌のとき0
 	for _, v := range a {
 		// 4で割ると本来のインデックスに
