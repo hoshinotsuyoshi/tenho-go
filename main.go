@@ -181,11 +181,11 @@ func validate_suit_group(a []int) bool {
 			rest := []int{}
 			c := 2
 			for _, w := range a {
-				if w == v && c != 0 {
-					c--
-				}
 				if w != v || c == 0 {
 					rest = append(rest, w)
+				}
+				if w == v && c != 0 {
+					c--
 				}
 			}
 			if valid_3cards(rest) {
