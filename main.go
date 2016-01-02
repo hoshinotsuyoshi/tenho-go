@@ -8,6 +8,17 @@ import (
 )
 
 func main() {
+	i := 0
+	for {
+		i++
+		log.Printf("%d\n", i)
+		if submain() {
+			break
+		}
+	}
+}
+
+func submain() bool {
 	/*
 		log.Print("started.")
 		// チャネル
@@ -30,8 +41,9 @@ func main() {
 
 	// 出力
 	// digit_output(list)
-	solve(list)
+	result := solve(list)
 	string_output(list)
+	return result
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
@@ -92,9 +104,9 @@ func solve(list []int) bool {
 		group(matrix, value)
 	}
 	log.Println(matrix)
+	log.Println("##end solve")
 
-	group_scan(matrix)
-	return false
+	return group_scan(matrix)
 }
 
 // スート分類してくれる
@@ -114,6 +126,7 @@ func group(m [][]int, j int) {
 }
 
 func group_scan(m [][]int) bool {
+	log.Println("##start solve")
 	if !validate_mod3(m) {
 		log.Println("immi")
 		return false
@@ -142,42 +155,58 @@ func validate_mod3(m [][]int) bool {
 }
 
 func validate_33332(m [][]int) bool {
+	log.Println("##start validate_33332")
 	for _, a := range m {
 		if !validate_suit_group(a) {
 			return false
 		}
 	}
+	log.Println("##end validate_33332")
 	return true
 }
 
 func validate_suit_group(a []int) bool {
-	//TODO: implement
+	log.Println("##start validate_suit_group")
 	for _, v := range a {
 		// 4で割ると本来のインデックスに
 		v = v / 4
 	}
 
+	log.Println("##1")
 	//ソート
 	sort.Ints(a)
+	log.Println("##2")
+	log.Println("##2-1")
 	if len(a)%3 == 2 {
+		log.Println("##3")
 		//ペアを探す
 		pair_numbers := pairable_numbers(a)
 		//ペア候補がなかったらぬける
+		log.Println("##4")
 		if len(pair_numbers) == 0 {
+			log.Println("##5")
 			return false
 		}
 		//ペア候補毎に繰り返し処理
+		log.Println("##6")
+		log.Println("======")
+		log.Println(pair_numbers)
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
+			log.Println("##7")
 			rest := []int{}
 			c := 2
 			for _, w := range a {
-				if w != v && c != 0 {
-					rest = append(rest, w)
+				if w == v && c != 0 {
 					c--
+				}
+				if w != v || c == 0 {
+					rest = append(rest, w)
 				}
 			}
 			if valid_3cards(rest) {
+				log.Println("------")
+				log.Println(rest)
 				return true
 			} else {
 				continue
@@ -185,6 +214,7 @@ func validate_suit_group(a []int) bool {
 		}
 		return false
 	} else if len(a)%3 == 0 {
+		log.Println("##8")
 		return valid_3cards(a)
 	}
 	// 来ないはず
@@ -195,31 +225,42 @@ func valid_3cards(a []int) bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
+	ok := false
+	log.Println("##start valid_3cards")
 	for {
-		if remove_kotsu(a) {
+		log.Println("##11")
+		a, ok = remove_kotsu(a)
+		log.Println("##12")
+		log.Println("%v", a)
+		if ok {
 			continue
 		}
-		if remove_shuntsu(a) {
+		a, ok = remove_shuntsu(a)
+		log.Println("##13")
+		log.Println("%v", a)
+		if ok {
 			continue
 		}
+		log.Println("hore", len(a) == 0)
 		return len(a) == 0
 	}
 }
 
-func remove_kotsu(a []int) bool {
+func remove_kotsu(a []int) ([]int, bool) {
 	// 刻子を除去できればtrue
 	// a is sorted
+	retval := a
 	if len(a) < 3 {
-		return false
+		return retval, false
 	}
 	if a[0] == a[1] && a[0] == a[2] {
-		a = a[3:]
-		return true
+		retval = a[3:]
+		return retval, true
 	}
-	return false
+	return retval, false
 }
 
-func remove_shuntsu(a []int) bool {
+func remove_shuntsu(a []int) ([]int, bool) {
 	// 順子を除去できればtrue
 	// a is sorted
 	rest := []int{}
@@ -244,8 +285,7 @@ func remove_shuntsu(a []int) bool {
 			rest = append(rest, v)
 		}
 	}
-	a = rest
-	return found
+	return rest, found
 }
 
 func pairable_numbers(sorted []int) []int {
