@@ -104,7 +104,6 @@ func solve(list []int) bool {
 		group(matrix, value)
 	}
 	log.Println(matrix)
-	log.Println("##end solve")
 
 	return group_scan(matrix)
 }
@@ -126,9 +125,7 @@ func group(m [][]int, j int) {
 }
 
 func group_scan(m [][]int) bool {
-	log.Println("##start solve")
 	if !validate_mod3(m) {
-		log.Println("immi")
 		return false
 	}
 	if !validate_33332(m) {
@@ -155,45 +152,32 @@ func validate_mod3(m [][]int) bool {
 }
 
 func validate_33332(m [][]int) bool {
-	log.Println("##start validate_33332")
 	for _, a := range m {
 		if !validate_suit_group(a) {
 			return false
 		}
 	}
-	log.Println("##end validate_33332")
 	return true
 }
 
 func validate_suit_group(a []int) bool {
-	log.Println("##start validate_suit_group")
 	for _, v := range a {
 		// 4で割ると本来のインデックスに
 		v = v / 4
 	}
 
-	log.Println("##1")
 	//ソート
 	sort.Ints(a)
-	log.Println("##2")
-	log.Println("##2-1")
 	if len(a)%3 == 2 {
-		log.Println("##3")
 		//ペアを探す
 		pair_numbers := pairable_numbers(a)
 		//ペア候補がなかったらぬける
-		log.Println("##4")
 		if len(pair_numbers) == 0 {
-			log.Println("##5")
 			return false
 		}
 		//ペア候補毎に繰り返し処理
-		log.Println("##6")
-		log.Println("======")
-		log.Println(pair_numbers)
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			log.Println("##7")
 			rest := []int{}
 			c := 2
 			for _, w := range a {
@@ -205,8 +189,6 @@ func validate_suit_group(a []int) bool {
 				}
 			}
 			if valid_3cards(rest) {
-				log.Println("------")
-				log.Println(rest)
 				return true
 			} else {
 				continue
@@ -214,7 +196,6 @@ func validate_suit_group(a []int) bool {
 		}
 		return false
 	} else if len(a)%3 == 0 {
-		log.Println("##8")
 		return valid_3cards(a)
 	}
 	// 来ないはず
@@ -226,22 +207,15 @@ func valid_3cards(a []int) bool {
 	// a is sorted
 	// a.size % 3 is0
 	ok := false
-	log.Println("##start valid_3cards")
 	for {
-		log.Println("##11")
 		a, ok = remove_kotsu(a)
-		log.Println("##12")
-		log.Println("%v", a)
 		if ok {
 			continue
 		}
 		a, ok = remove_shuntsu(a)
-		log.Println("##13")
-		log.Println("%v", a)
 		if ok {
 			continue
 		}
-		log.Println("hore", len(a) == 0)
 		return len(a) == 0
 	}
 }
