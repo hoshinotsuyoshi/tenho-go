@@ -11,7 +11,7 @@ func main() {
 	i := 0
 	for {
 		i++
-		fmt.Printf("\r%v", i)
+		fmt.Printf("\r%v回試行  x秒経過 x回/秒", i)
 		if submain() {
 			break
 		}
