@@ -181,10 +181,12 @@ func validate_suit_group(a []int) bool {
 			rest := []int{}
 			c := 2
 			for _, w := range a {
-				if w != v || c == 0 {
+				// ペア候補以外は新スライスに入れる
+				// ペア候補は３枚目以降は新スライスに入れる
+				if w != v || c <= 0 {
 					rest = append(rest, w)
 				}
-				if w == v && c != 0 {
+				if w == v {
 					c--
 				}
 			}
