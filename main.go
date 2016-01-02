@@ -104,21 +104,18 @@ func group(m [][]int, j int) {
 	switch {
 	case i < 7:
 		m[0] = append(m[0], i)
-		log.Println(i)
 	case i < 7+(9*1):
 		m[1] = append(m[1], i-7)
-		log.Println(i)
 	case i < 7+(9*2):
 		m[2] = append(m[2], i-7-(9*1))
-		log.Println(i)
 	case i < 7+(9*3):
 		m[3] = append(m[3], i-7-(9*2))
-		log.Println(i)
 	}
 }
 
 func group_scan(m [][]int) bool {
 	if !validate_mod3(m) {
+		log.Println("immi")
 		return false
 	}
 	if !validate_33332(m) {
@@ -136,7 +133,6 @@ func validate_mod3(m [][]int) bool {
 		case 0:
 			// noop
 		case 1:
-			log.Println("immi")
 			return false
 		case 2:
 			c++
