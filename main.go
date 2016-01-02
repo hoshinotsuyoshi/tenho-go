@@ -11,7 +11,7 @@ func main() {
 	i := 0
 	for {
 		i++
-		fmt.Printf("%d\n", i)
+		fmt.Printf("\r%v", i)
 		if submain() {
 			break
 		}
@@ -90,7 +90,7 @@ func string_output(list []int) {
 		b = append(b, string(list[j]/4+126976)...) // ...が必要
 		b = append(b, string(32)...)               // ...が必要
 	}
-	fmt.Print(string(b))
+	fmt.Printf("%v", string(b))
 }
 
 // solve
@@ -103,7 +103,7 @@ func solve(list []int) bool {
 	for _, value := range list {
 		group(matrix, value)
 	}
-	fmt.Println(matrix)
+	//fmt.Printf("%v", matrix)
 
 	return group_scan(matrix)
 }
