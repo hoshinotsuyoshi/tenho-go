@@ -40,7 +40,6 @@ func submain() bool {
 	list := shuffled_cards()
 
 	// 出力
-	// digit_output(list)
 	result := solve(list)
 	string_output(list)
 	return result
@@ -68,13 +67,6 @@ func shuffled_cards() []int {
 	shuffle(list)
 
 	return list[:14]
-}
-
-// 単純出力
-func digit_output(list []int) {
-	for j := 0; j < 14; j++ {
-		fmt.Println(list[j])
-	}
 }
 
 // 牌の出力
