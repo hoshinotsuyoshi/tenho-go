@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"math/rand"
 	"sort"
 	"time"
@@ -11,7 +11,7 @@ func main() {
 	i := 0
 	for {
 		i++
-		log.Printf("%d\n", i)
+		fmt.Printf("%d\n", i)
 		if submain() {
 			break
 		}
@@ -20,15 +20,15 @@ func main() {
 
 func submain() bool {
 	/*
-		log.Print("started.")
+		fmt.Print("started.")
 		// チャネル
 		sleep1_finished := make(chan bool)
 
 		go func() {
 			// 0.2秒かかるコマンド
-			log.Print("sleep1 started.")
+			fmt.Print("sleep1 started.")
 			time.Sleep(200 * 1000 * 1000 * time.Nanosecond)
-			log.Print("sleep1 finished.")
+			fmt.Print("sleep1 finished.")
 			sleep1_finished <- true
 		}()
 
@@ -73,7 +73,7 @@ func shuffled_cards() []int {
 // 単純出力
 func digit_output(list []int) {
 	for j := 0; j < 14; j++ {
-		log.Println(list[j])
+		fmt.Println(list[j])
 	}
 }
 
@@ -90,7 +90,7 @@ func string_output(list []int) {
 		b = append(b, string(list[j]/4+126976)...) // ...が必要
 		b = append(b, string(32)...)               // ...が必要
 	}
-	log.Print(string(b))
+	fmt.Print(string(b))
 }
 
 // solve
@@ -103,7 +103,7 @@ func solve(list []int) bool {
 	for _, value := range list {
 		group(matrix, value)
 	}
-	log.Println(matrix)
+	fmt.Println(matrix)
 
 	return group_scan(matrix)
 }
