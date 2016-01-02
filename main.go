@@ -191,8 +191,61 @@ func validate_suit_group(a []int) bool {
 	return false
 }
 
-func valid_3cards(sorted_mod3 []int) bool {
+func valid_3cards(a []int) bool {
+	// 刻子や順子のみで構成されている場合true
+	// a is sorted
+	// a.size % 3 is0
+	for {
+		if remove_kotsu(a) {
+			continue
+		}
+		if remove_shuntsu(a) {
+			continue
+		}
+		return len(a) == 0
+	}
+}
+
+func remove_kotsu(a []int) bool {
+	// 刻子を除去できればtrue
+	// a is sorted
+	if len(a) < 3 {
+		return false
+	}
+	if a[0] == a[1] && a[0] == a[2] {
+		a = a[3:]
+		return true
+	}
 	return false
+}
+
+func remove_shuntsu(a []int) bool {
+	// 順子を除去できればtrue
+	// a is sorted
+	rest := []int{}
+	first := -1
+	second := -1
+	found := false
+	for _, v := range a {
+		if found {
+			rest = append(rest, v)
+			continue
+		}
+		if first == -1 {
+			first = v
+		} else if second == -1 && first+1 == v {
+			second = v
+		} else if second != -1 && first+2 == v {
+			//flush
+			first = -1
+			second = -1
+			found = true
+		} else {
+			rest = append(rest, v)
+		}
+	}
+	a = rest
+	return found
 }
 
 func pairable_numbers(sorted []int) []int {
