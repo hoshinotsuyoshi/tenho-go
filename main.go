@@ -166,10 +166,32 @@ func validate_suit_group(a []int) bool {
 		if len(pair_numbers) == 0 {
 			return false
 		}
+		//ペア候補毎に繰り返し処理
+		for _, v := range pair_numbers {
+			//ペアとなる２枚を除去
+			rest := []int{}
+			c := 2
+			for _, w := range a {
+				if w != v && c != 0 {
+					rest = append(rest, w)
+					c--
+				}
+			}
+			if valid_3cards(rest) {
+				return true
+			} else {
+				continue
+			}
+		}
+		return false
 	} else if len(a)%3 == 0 {
-		return true
+		return valid_3cards(a)
 	}
 	// 来ないはず
+	return false
+}
+
+func valid_3cards(sorted_mod3 []int) bool {
 	return false
 }
 
