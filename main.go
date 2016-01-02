@@ -152,15 +152,16 @@ func validate_mod3(m [][]int) bool {
 }
 
 func validate_33332(m [][]int) bool {
-	for _, a := range m {
-		if !validate_suit_group(a) {
+	for i := 0; i < 4; i++ {
+		if !validate_suit_group(m[i], i) {
 			return false
 		}
 	}
 	return true
 }
 
-func validate_suit_group(a []int) bool {
+func validate_suit_group(a []int, i int) bool {
+	// 第二引数は字牌のとき0
 	for _, v := range a {
 		// 4で割ると本来のインデックスに
 		v = v / 4
@@ -190,7 +191,7 @@ func validate_suit_group(a []int) bool {
 					c--
 				}
 			}
-			if valid_3cards(rest) {
+			if valid_3cards(rest, i) {
 				return true
 			} else {
 				continue
@@ -198,25 +199,28 @@ func validate_suit_group(a []int) bool {
 		}
 		return false
 	} else if len(a)%3 == 0 {
-		return valid_3cards(a)
+		return valid_3cards(a, i)
 	}
 	// 来ないはず
 	return false
 }
 
-func valid_3cards(a []int) bool {
+func valid_3cards(a []int, i int) bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
+	// 第二引数は字牌のとき0
 	ok := false
 	for {
 		a, ok = remove_kotsu(a)
 		if ok {
 			continue
 		}
-		a, ok = remove_shuntsu(a)
-		if ok {
-			continue
+		if i > 0 {
+			a, ok = remove_shuntsu(a)
+			if ok {
+				continue
+			}
 		}
 		return len(a) == 0
 	}
