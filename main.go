@@ -73,7 +73,7 @@ func shuffled_cards() []int {
 	size := 136
 	list := make([]int, size, size)
 	for i := 0; i < size; i++ {
-		list[i] = i
+		list[i] = i / 4
 	}
 
 	// シャッフル
@@ -92,8 +92,8 @@ func string_output(list []int) {
 	for j := 0; j < 14; j++ {
 		// 126976 is 'ton'
 		// https://codepoints.net/U+1F000
-		b = append(b, string(list[j]/4+126976)...) // ...が必要
-		b = append(b, string(32)...)               // ...が必要
+		b = append(b, string(list[j]+126976)...) // ...が必要
+		b = append(b, string(32)...)             // ...が必要
 	}
 	fmt.Printf("%v", string(b))
 }
@@ -114,9 +114,7 @@ func solve(list []int) bool {
 }
 
 // スート分類してくれる
-func group(m [][]int, j int) {
-	// 4で割ると本来のインデックスに
-	i := j / 4
+func group(m [][]int, i int) {
 	switch {
 	case i < 7:
 		m[0] = append(m[0], i)
@@ -167,10 +165,6 @@ func valid_33332(m [][]int) bool {
 
 func valid_suit_group(a []int, i int) bool {
 	// 第二引数は字牌のとき0
-	for _, v := range a {
-		// 4で割ると本来のインデックスに
-		v = v / 4
-	}
 
 	//ソート
 	sort.Ints(a)
@@ -296,8 +290,6 @@ func is_chitoitsu(list []int) bool {
 	l := list
 
 	for _, v := range l {
-		// 4で割ると本来のインデックスに
-		v = v / 4
 		count, ok := c[v]
 		if ok {
 			if count == 1 {
