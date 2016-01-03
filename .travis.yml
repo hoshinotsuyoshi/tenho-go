@@ -1,0 +1,6 @@
+language: go
+
+go:
+  - 1.4
+  - tip
+script: export GOPATH=`pwd`; go test -v ./...
