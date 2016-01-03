@@ -32,23 +32,6 @@ func main() {
 }
 
 func submain() bool {
-	/*
-		fmt.Print("started.")
-		// チャネル
-		sleep1_finished := make(chan bool)
-
-		go func() {
-			// 0.2秒かかるコマンド
-			fmt.Print("sleep1 started.")
-			time.Sleep(200 * 1000 * 1000 * time.Nanosecond)
-			fmt.Print("sleep1 finished.")
-			sleep1_finished <- true
-		}()
-
-		// 終わるまで待つ
-		<- sleep1_finished
-	*/
-
 	// 136枚の中から14枚返したい
 	list := shuffled_cards()
 
