@@ -18,8 +18,7 @@ func main() {
 		diff := float64(end.Sub(start) / 1000 / 1000 / 1000)
 		m := int(i / diff)
 		out := 0
-		if m < 0 {
-		} else {
+		if m >= 0 {
 			out = m
 		}
 		fmt.Printf("\r")
