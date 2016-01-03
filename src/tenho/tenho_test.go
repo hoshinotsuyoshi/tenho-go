@@ -2,7 +2,7 @@ package tenho_test
 
 import (
 	"fmt"
-	"tenho"
+	"github.com/hoshinotsuyoshi/tenho-go/src/tenho"
 )
 
 func ExampleCards_HaiString() {
