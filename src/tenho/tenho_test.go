@@ -5,9 +5,9 @@ import (
 	"tenho"
 )
 
-func ExampleHaiString() {
-	list := tenho.Cards{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
-	fmt.Println(tenho.HaiString(list))
+func ExampleCards_HaiString() {
+	cards := tenho.Cards{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
+	fmt.Println(cards.HaiString())
 	// Output:
 	// 🀟 🀡 🀙 🀋 🀌 🀜 🀊 🀘 🀟 🀠 🀗 🀕 🀈 🀛
 }
