@@ -23,16 +23,17 @@ func Start() {
 		}
 		fmt.Printf("\r")
 		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
-		if try_once() {
+		seed := time.Now().UnixNano()
+		if Try_once(seed) {
 			break
 		}
 	}
 	fmt.Printf("\n")
 }
 
-func try_once() bool {
+func Try_once(seed int64) bool {
 	// 136枚の中から14枚返したい
-	list := shuffled_cards()
+	list := shuffled_cards(seed)
 
 	// 出力
 	result := solve(list)
@@ -48,8 +49,8 @@ func shuffle(list []int) {
 	}
 }
 
-func shuffled_cards() []int {
-	rand.Seed(time.Now().UnixNano())
+func shuffled_cards(seed int64) []int {
+	rand.Seed(seed)
 
 	// データ要素数指定、および初期データ作成
 	size := 136
