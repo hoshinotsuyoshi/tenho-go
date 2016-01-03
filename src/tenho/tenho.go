@@ -275,10 +275,7 @@ func is_chitoitsu(hand Hand) bool {
 	//カウンタ
 	c := map[int]int{}
 
-	//コピー
-	l := hand
-
-	for _, v := range l {
+	for _, v := range hand {
 		count, ok := c[v]
 		if ok {
 			if count == 1 {
