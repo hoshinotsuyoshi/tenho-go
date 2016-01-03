@@ -1,4 +1,4 @@
-package main
+package tenho
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func main() {
+func Start() {
 	start := time.Now()
 	// 処理
 	var i float64
