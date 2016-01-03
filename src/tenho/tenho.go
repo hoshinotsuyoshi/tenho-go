@@ -24,21 +24,22 @@ func Start() {
 		fmt.Printf("\r")
 		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
 		seed := time.Now().UnixNano()
-		if tryOnce(seed) {
+		var hai string
+		var ok bool
+		hai, ok = tryOnce(seed)
+		fmt.Printf("%v", hai)
+		if ok {
 			break
 		}
 	}
 	fmt.Printf("\n")
 }
 
-func tryOnce(seed int64) bool {
-	// 136枚の中から14枚返したい
+func tryOnce(seed int64) (string, bool) {
 	list := ShuffledCards(seed)
-
-	// 出力
-	result := Solve(list)
-	StringOutput(list)
-	return result
+	hai := HaiString(list)
+	ok := Solve(list)
+	return hai, ok
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
@@ -65,8 +66,8 @@ func ShuffledCards(seed int64) []int {
 	return list[:14]
 }
 
-// 牌文字の出力(スペース区切り)
-func StringOutput(list []int) {
+// 牌文字への変換(スペース区切り)
+func HaiString(list []int) string {
 	// http://qiita.com/ruiu/items/2bb83b29baeae2433a79
 	// サイズ0、内部バッファの長さ69の[]byteの値を割り当てる
 	b := make([]byte, 0, 70)
@@ -82,7 +83,7 @@ func StringOutput(list []int) {
 		// https://codepoints.net/U+0020
 		b = append(b, string(0x20)...) // appendするには...が必要
 	}
-	fmt.Printf("%v", string(b))
+	return string(b)
 }
 
 // あがり判定する

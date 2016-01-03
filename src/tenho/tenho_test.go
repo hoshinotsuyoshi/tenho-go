@@ -5,9 +5,9 @@ import (
 	"tenho"
 )
 
-func ExampleStringOutput() {
+func ExampleHaiString() {
 	list := []int{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
-	tenho.StringOutput(list)
+	fmt.Println(tenho.HaiString(list))
 	// Output:
 	// 🀟 🀡 🀙 🀋 🀌 🀜 🀊 🀘 🀟 🀠 🀗 🀕 🀈 🀛
 }
