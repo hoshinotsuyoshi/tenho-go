@@ -8,14 +8,27 @@ import (
 )
 
 func main() {
-	i := 0
+	start := time.Now()
+	// 処理
+	var i float64
+	i = 0
 	for {
 		i++
-		fmt.Printf("\r%v回試行  x秒経過 x回/秒", i)
+		end := time.Now()
+		diff := float64(end.Sub(start) / 1000 / 1000 / 1000)
+		m := int(i / diff)
+		out := 0
+		if m < 0 {
+		} else {
+			out = m
+		}
+		fmt.Printf("\r")
+		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
 		if submain() {
 			break
 		}
 	}
+	fmt.Printf("\n")
 }
 
 func submain() bool {
