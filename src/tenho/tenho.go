@@ -24,20 +24,20 @@ func Start() {
 		fmt.Printf("\r")
 		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
 		seed := time.Now().UnixNano()
-		if TryOnce(seed) {
+		if tryOnce(seed) {
 			break
 		}
 	}
 	fmt.Printf("\n")
 }
 
-func TryOnce(seed int64) bool {
+func tryOnce(seed int64) bool {
 	// 136枚の中から14枚返したい
 	list := ShuffledCards(seed)
 
 	// 出力
 	result := Solve(list)
-	string_output(list)
+	StringOutput(list)
 	return result
 }
 
@@ -65,8 +65,8 @@ func ShuffledCards(seed int64) []int {
 	return list[:14]
 }
 
-// 牌の出力
-func string_output(list []int) {
+// 牌文字の出力(スペース区切り)
+func StringOutput(list []int) {
 	// http://qiita.com/ruiu/items/2bb83b29baeae2433a79
 	// サイズ0、内部バッファの長さ69の[]byteの値を割り当てる
 	b := make([]byte, 0, 70)
