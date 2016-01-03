@@ -200,8 +200,8 @@ func valid_suit_group(a []int, i int) bool {
 	} else if len(a)%3 == 0 {
 		return valid_3cards(a, i)
 	}
-	// 来ないはず
-	return false
+	// 到達しないはず
+	panic("到達しないはず")
 }
 
 func valid_3cards(a []int, i int) bool {
