@@ -24,14 +24,14 @@ func main() {
 		}
 		fmt.Printf("\r")
 		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
-		if submain() {
+		if try_once() {
 			break
 		}
 	}
 	fmt.Printf("\n")
 }
 
-func submain() bool {
+func try_once() bool {
 	// 136枚の中から14枚返したい
 	list := shuffled_cards()
 
