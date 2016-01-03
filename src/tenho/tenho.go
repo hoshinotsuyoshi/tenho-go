@@ -257,18 +257,17 @@ func remove_shuntsu(a Hand) (Hand, bool) {
 }
 
 func pairable_numbers(sorted Hand) Hand {
-	//カウンタ
-	retval := Hand{}
+	counter := []int{}
 	a := 999 // 2つ前
 	b := 999 // 1つ前
 	for _, v := range sorted {
 		if b == v && a != v {
-			retval = append(retval, v)
+			counter = append(counter, v)
 		} else {
 			b = v
 		}
 	}
-	return retval
+	return counter
 }
 
 func is_chitoitsu(hand Hand) bool {
