@@ -89,12 +89,12 @@ func (c Hand) HaiString() string {
 }
 
 // あがり判定する
-func Solve(list Hand) bool {
-	if is_chitoitsu(list) {
+func Solve(hand Hand) bool {
+	if is_chitoitsu(hand) {
 		return true
 	}
 	matrix := []Hand{{}, {}, {}, {}}
-	for _, value := range list {
+	for _, value := range hand {
 		group(matrix, value)
 	}
 	//fmt.Printf("%v", matrix)
@@ -271,12 +271,12 @@ func pairable_numbers(sorted Hand) Hand {
 	return retval
 }
 
-func is_chitoitsu(list Hand) bool {
+func is_chitoitsu(hand Hand) bool {
 	//カウンタ
 	c := map[int]int{}
 
 	//コピー
-	l := list
+	l := hand
 
 	for _, v := range l {
 		count, ok := c[v]
