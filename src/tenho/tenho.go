@@ -38,9 +38,9 @@ func Start() {
 type Hand []int
 
 func tryOnce(seed int64) (string, bool) {
-	cards := ShuffledHand(seed)
-	hai := cards.HaiString()
-	ok := Solve(cards)
+	hand := ShuffledHand(seed)
+	hai := hand.HaiString()
+	ok := Solve(hand)
 	return hai, ok
 }
 
