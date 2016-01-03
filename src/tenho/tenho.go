@@ -57,15 +57,15 @@ func ShuffledHand(seed int64) Hand {
 
 	// データ要素数指定、および初期データ作成
 	size := 136
-	list := make(Hand, size, size)
+	hand := make(Hand, size, size)
 	for i := 0; i < size; i++ {
-		list[i] = i / 4
+		hand[i] = i / 4
 	}
 
 	// シャッフル
-	shuffle(list)
+	shuffle(hand)
 
-	return list[:14]
+	return hand[:14]
 }
 
 // 牌文字への変換(スペース区切り)
