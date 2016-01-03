@@ -33,7 +33,7 @@ func Start() {
 
 func TryOnce(seed int64) bool {
 	// 136枚の中から14枚返したい
-	list := shuffled_cards(seed)
+	list := ShuffledCards(seed)
 
 	// 出力
 	result := solve(list)
@@ -49,7 +49,7 @@ func shuffle(list []int) {
 	}
 }
 
-func shuffled_cards(seed int64) []int {
+func ShuffledCards(seed int64) []int {
 	rand.Seed(seed)
 
 	// データ要素数指定、および初期データ作成
