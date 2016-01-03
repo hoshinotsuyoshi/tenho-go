@@ -1,7 +1,7 @@
 package main
 
 import (
-	"tenho"
+	"github.com/hoshinotsuyoshi/tenho-go/src/tenho"
 )
 
 func main() {
