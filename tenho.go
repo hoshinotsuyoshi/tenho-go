@@ -43,7 +43,7 @@ func try_once() bool {
 // http://d.hatena.ne.jp/hake/20150930/p1
 func shuffle(list []int) {
 	for i := len(list); i > 1; i-- {
-		j := rand.Intn(i) // 0　.. i-1 の乱数発生
+		j := rand.Intn(i) // 0 .. i-1 の乱数発生
 		list[i-1], list[j] = list[j], list[i-1]
 	}
 }
