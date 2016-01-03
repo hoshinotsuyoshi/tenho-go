@@ -93,27 +93,28 @@ func Solve(hand Hand) bool {
 	if is_chitoitsu(hand) {
 		return true
 	}
-	matrix := []Hand{{}, {}, {}, {}}
-	for _, value := range hand {
-		group(matrix, value)
-	}
+	matrix := hand.GroupSuit()
 	//fmt.Printf("%v", matrix)
 
 	return group_scan(matrix)
 }
 
-// スート分類してくれる
-func group(m []Hand, i int) {
-	switch {
-	case i < 7:
-		m[0] = append(m[0], i)
-	case i < 7+(9*1):
-		m[1] = append(m[1], i-7)
-	case i < 7+(9*2):
-		m[2] = append(m[2], i-7-(9*1))
-	case i < 7+(9*3):
-		m[3] = append(m[3], i-7-(9*2))
+// スート分類
+func (hand Hand) GroupSuit() []Hand {
+	m := []Hand{{}, {}, {}, {}}
+	for _, i := range hand {
+		switch {
+		case i < 7:
+			m[0] = append(m[0], i)
+		case i < 7+(9*1):
+			m[1] = append(m[1], i-7)
+		case i < 7+(9*2):
+			m[2] = append(m[2], i-7-(9*1))
+		case i < 7+(9*3):
+			m[3] = append(m[3], i-7-(9*2))
+		}
 	}
+	return m
 }
 
 func group_scan(m []Hand) bool {
