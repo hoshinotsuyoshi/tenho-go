@@ -20,3 +20,10 @@ func ExampleShuffledCards() {
 	// Output:
 	// [31 33 25 11 12 28 10 24 31 32 23 21 8 27]
 }
+
+func ExampleSolve_false() {
+	list := []int{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
+	fmt.Println(tenho.Solve(list))
+	// Output:
+	// false
+}

@@ -36,7 +36,7 @@ func TryOnce(seed int64) bool {
 	list := ShuffledCards(seed)
 
 	// 出力
-	result := solve(list)
+	result := Solve(list)
 	string_output(list)
 	return result
 }
@@ -85,9 +85,8 @@ func string_output(list []int) {
 	fmt.Printf("%v", string(b))
 }
 
-// solve
-// 字マンソーピンのリストをつくる
-func solve(list []int) bool {
+// あがり判定する
+func Solve(list []int) bool {
 	if is_chitoitsu(list) {
 		return true
 	}
