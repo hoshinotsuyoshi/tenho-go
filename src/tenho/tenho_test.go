@@ -27,3 +27,10 @@ func ExampleSolve_false() {
 	// Output:
 	// false
 }
+
+func ExampleSolve_true() {
+	list := []int{7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16, 17, 17}
+	fmt.Println(tenho.Solve(list))
+	// Output:
+	// true
+}
