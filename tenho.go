@@ -72,10 +72,14 @@ func string_output(list []int) {
 
 	// bに文字列を追加
 	for j := 0; j < 14; j++ {
-		// 126976 is 'ton'
+		// コードポイント上、普通の麻雀牌はU+1F000からの34個。
+		// U+1F000 is 'MAHJONG TILE EAST WIND' ('東')
 		// https://codepoints.net/U+1F000
-		b = append(b, string(list[j]+126976)...) // ...が必要
-		b = append(b, string(32)...)             // ...が必要
+		b = append(b, string(list[j]+0x1F000)...) // appendするには...が必要
+		// 自分のMacではスペース区切りでないとうまく表示されないためスペースを挿入する
+		// U+0020 is 'SPACE'
+		// https://codepoints.net/U+0020
+		b = append(b, string(0x20)...) // appendするには...が必要
 	}
 	fmt.Printf("%v", string(b))
 }
