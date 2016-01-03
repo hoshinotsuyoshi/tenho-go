@@ -45,10 +45,10 @@ func tryOnce(seed int64) (string, bool) {
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
-func shuffle(list Hand) {
-	for i := len(list); i > 1; i-- {
+func shuffle(hand Hand) {
+	for i := len(hand); i > 1; i-- {
 		j := rand.Intn(i) // 0 .. i-1 の乱数発生
-		list[i-1], list[j] = list[j], list[i-1]
+		hand[i-1], hand[j] = hand[j], hand[i-1]
 	}
 }
 
