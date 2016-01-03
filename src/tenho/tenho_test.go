@@ -5,10 +5,10 @@ import (
 	"tenho"
 )
 
-func ExampleTry_once() {
+func ExampleTryOnce() {
 	var seed int64
 	seed = 1451836284287681922
-	fmt.Println(tenho.Try_once(seed))
+	fmt.Println(tenho.TryOnce(seed))
 	// Output:
 	// 🀟 🀡 🀙 🀋 🀌 🀜 🀊 🀘 🀟 🀠 🀗 🀕 🀈 🀛 false
 }

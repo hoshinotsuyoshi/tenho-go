@@ -24,14 +24,14 @@ func Start() {
 		fmt.Printf("\r")
 		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
 		seed := time.Now().UnixNano()
-		if Try_once(seed) {
+		if TryOnce(seed) {
 			break
 		}
 	}
 	fmt.Printf("\n")
 }
 
-func Try_once(seed int64) bool {
+func TryOnce(seed int64) bool {
 	// 136枚の中から14枚返したい
 	list := shuffled_cards(seed)
 
