@@ -35,6 +35,8 @@ func Start() {
 	fmt.Printf("\n")
 }
 
+type Cards []int
+
 func tryOnce(seed int64) (string, bool) {
 	list := ShuffledCards(seed)
 	hai := HaiString(list)
@@ -43,19 +45,19 @@ func tryOnce(seed int64) (string, bool) {
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
-func shuffle(list []int) {
+func shuffle(list Cards) {
 	for i := len(list); i > 1; i-- {
 		j := rand.Intn(i) // 0 .. i-1 の乱数発生
 		list[i-1], list[j] = list[j], list[i-1]
 	}
 }
 
-func ShuffledCards(seed int64) []int {
+func ShuffledCards(seed int64) Cards {
 	rand.Seed(seed)
 
 	// データ要素数指定、および初期データ作成
 	size := 136
-	list := make([]int, size, size)
+	list := make(Cards, size, size)
 	for i := 0; i < size; i++ {
 		list[i] = i / 4
 	}
@@ -67,7 +69,7 @@ func ShuffledCards(seed int64) []int {
 }
 
 // 牌文字への変換(スペース区切り)
-func HaiString(list []int) string {
+func HaiString(list Cards) string {
 	// http://qiita.com/ruiu/items/2bb83b29baeae2433a79
 	// サイズ0、内部バッファの長さ69の[]byteの値を割り当てる
 	b := make([]byte, 0, 70)
@@ -87,11 +89,11 @@ func HaiString(list []int) string {
 }
 
 // あがり判定する
-func Solve(list []int) bool {
+func Solve(list Cards) bool {
 	if is_chitoitsu(list) {
 		return true
 	}
-	matrix := [][]int{{}, {}, {}, {}}
+	matrix := []Cards{{}, {}, {}, {}}
 	for _, value := range list {
 		group(matrix, value)
 	}
@@ -101,7 +103,7 @@ func Solve(list []int) bool {
 }
 
 // スート分類してくれる
-func group(m [][]int, i int) {
+func group(m []Cards, i int) {
 	switch {
 	case i < 7:
 		m[0] = append(m[0], i)
@@ -114,7 +116,7 @@ func group(m [][]int, i int) {
 	}
 }
 
-func group_scan(m [][]int) bool {
+func group_scan(m []Cards) bool {
 	if !valid_mod3(m) {
 		return false
 	}
@@ -124,7 +126,7 @@ func group_scan(m [][]int) bool {
 	return true
 }
 
-func valid_mod3(m [][]int) bool {
+func valid_mod3(m []Cards) bool {
 	//スートのサイズを3で割った時
 	//あまりが2であるすーとグループが1つであること
 	c := 0
@@ -141,7 +143,7 @@ func valid_mod3(m [][]int) bool {
 	return c == 1
 }
 
-func valid_33332(m [][]int) bool {
+func valid_33332(m []Cards) bool {
 	for i := 0; i < 4; i++ {
 		if !valid_suit_group(m[i], i) {
 			return false
@@ -150,7 +152,7 @@ func valid_33332(m [][]int) bool {
 	return true
 }
 
-func valid_suit_group(a []int, i int) bool {
+func valid_suit_group(a Cards, i int) bool {
 	// 第二引数は字牌のとき0
 
 	//ソート
@@ -165,7 +167,7 @@ func valid_suit_group(a []int, i int) bool {
 		//ペア候補毎に繰り返し処理
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			rest := []int{}
+			rest := Cards{}
 			c := 2
 			for _, w := range a {
 				// ペア候補以外は新スライスに入れる
@@ -191,7 +193,7 @@ func valid_suit_group(a []int, i int) bool {
 	panic("到達しないはず")
 }
 
-func valid_3cards(a []int, i int) bool {
+func valid_3cards(a Cards, i int) bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
@@ -212,7 +214,7 @@ func valid_3cards(a []int, i int) bool {
 	}
 }
 
-func remove_kotsu(a []int) ([]int, bool) {
+func remove_kotsu(a Cards) (Cards, bool) {
 	// 刻子を除去できればtrue
 	// a is sorted
 	retval := a
@@ -226,10 +228,10 @@ func remove_kotsu(a []int) ([]int, bool) {
 	return retval, false
 }
 
-func remove_shuntsu(a []int) ([]int, bool) {
+func remove_shuntsu(a Cards) (Cards, bool) {
 	// 順子を除去できればtrue
 	// a is sorted
-	rest := []int{}
+	rest := Cards{}
 	first := -1
 	second := -1
 	found := false
@@ -254,9 +256,9 @@ func remove_shuntsu(a []int) ([]int, bool) {
 	return rest, found
 }
 
-func pairable_numbers(sorted []int) []int {
+func pairable_numbers(sorted Cards) Cards {
 	//カウンタ
-	retval := []int{}
+	retval := Cards{}
 	a := 999 // 2つ前
 	b := 999 // 1つ前
 	for _, v := range sorted {
@@ -269,7 +271,7 @@ func pairable_numbers(sorted []int) []int {
 	return retval
 }
 
-func is_chitoitsu(list []int) bool {
+func is_chitoitsu(list Cards) bool {
 	//カウンタ
 	c := map[int]int{}
 
