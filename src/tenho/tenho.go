@@ -32,6 +32,10 @@ func Start() {
 			fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 			break
 		}
+		//fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
+		//if i > 100000 {
+		//	break
+		//}
 	}
 	fmt.Printf("\n")
 }
@@ -61,10 +65,16 @@ func ShuffledHand(seed int64) Hand {
 		hand[i] = i / 4
 	}
 
-	// シャッフル
-	shuffle(hand)
+	hand2 := make(Hand, 0, 0)
+	var j int
 
-	return hand[:14]
+	for k := 136; k >= 123; k-- {
+		j = rand.Intn(k)
+		hand2 = append(hand2, hand[j])
+		hand = append(hand[:j], hand[j+1:]...)
+	}
+
+	return hand2
 }
 
 type Hand []int
