@@ -12,22 +12,35 @@ func ExampleHand_HaiString() {
 	// 🀟 🀡 🀙 🀋 🀌 🀜 🀊 🀘 🀟 🀠 🀗 🀕 🀈 🀛
 }
 
+/*
+mapのキーの順序をちゃんとするのが面倒
 func ExampleHand_GroupSuit() {
 	hand := tenho.Hand{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
 	fmt.Println(hand.GroupSuit())
 	// Output:
-	// [[] [4 5 3 1] [8 7 5] [6 8 0 3 6 7 2]]
+	// map[0:[] 1:[4 5 3 1] 2:[8 7 5] 3:[6 8 0 3 6 7 2]]
 }
+*/
 
 func ExampleSuitsGroupedHand_Solve_false() {
-	hand := tenho.SuitsGroupedHand{{}, {4, 5, 3, 1}, {8, 7, 5}, {6, 8, 0, 3, 6, 7, 2}}
+	hand := tenho.SuitsGroupedHand{
+		tenho.Jihai: {},
+		tenho.Manzu: {4, 5, 3, 1},
+		tenho.Sozu:  {8, 7, 5},
+		tenho.Pinzu: {6, 8, 0, 3, 6, 7, 2},
+	}
 	fmt.Println(hand.Solve())
 	// Output:
 	// false
 }
 
 func ExampleSuitsGroupedHand_Solve_true() {
-	hand := tenho.SuitsGroupedHand{{2, 2}, {3, 4, 5}, {7, 7, 7}, {3, 2, 1, 9, 8, 7}}
+	hand := tenho.SuitsGroupedHand{
+		tenho.Jihai: {2, 2},
+		tenho.Manzu: {3, 4, 5},
+		tenho.Sozu:  {7, 7, 7},
+		tenho.Pinzu: {3, 2, 1, 9, 8, 7},
+	}
 	fmt.Println(hand.Solve())
 	// Output:
 	// true

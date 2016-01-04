@@ -120,22 +120,32 @@ func (hand Hand) Solve() bool {
 
 type SuitGroup []int
 
-type SuitsGroupedHand []SuitGroup
+type SuitsGroupedHand map[int]SuitGroup
+
+const (
+	Jihai = iota
+	Manzu
+	Sozu
+	Pinzu
+)
 
 // スート分類
 func (hand Hand) GroupSuit() SuitsGroupedHand {
-	m := SuitsGroupedHand{{}, {}, {}, {}}
+	m := SuitsGroupedHand{
+		Jihai: {},
+		Manzu: {},
+		Sozu:  {},
+		Pinzu: {},
+	}
 	for _, i := range hand {
-		switch {
-		case i < 7:
-			m[0] = append(m[0], i)
-		case i < 7+(9*1):
-			m[1] = append(m[1], i-7)
-		case i < 7+(9*2):
-			m[2] = append(m[2], i-7-(9*1))
-		case i < 7+(9*3):
-			m[3] = append(m[3], i-7-(9*2))
+		quo := (i - 7 + 9) / 9
+		var mod int
+		if i-7 >= 0 {
+			mod = (i - 7) % 9
+		} else {
+			mod = i
 		}
+		m[quo] = append(m[quo], mod)
 	}
 	return m
 }
