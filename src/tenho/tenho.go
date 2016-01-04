@@ -219,12 +219,12 @@ func (a SuitGroup) valid_3cards(i int) bool {
 	// 引数は字牌のとき0
 	ok := false
 	for {
-		a, ok = a.remove_kotsu()
+		ok = a.remove_kotsu()
 		if ok {
 			continue
 		}
 		if i > 0 {
-			a, ok = a.remove_shuntsu()
+			ok = a.remove_shuntsu()
 			if ok {
 				continue
 			}
@@ -233,28 +233,28 @@ func (a SuitGroup) valid_3cards(i int) bool {
 	}
 }
 
-func (a SuitGroup) remove_kotsu() (SuitGroup, bool) {
+func (a *SuitGroup) remove_kotsu() bool {
 	// 刻子を除去できればtrue
 	// a is sorted
-	retval := a
-	if len(a) < 3 {
-		return retval, false
+	x := *a
+	if len(x) < 3 {
+		return false
 	}
-	if a[0] == a[1] && a[0] == a[2] {
-		retval = a[3:]
-		return retval, true
+	if x[0] == x[1] && x[0] == x[2] {
+		*a = x[3:]
+		return true
 	}
-	return retval, false
+	return false
 }
 
-func (a SuitGroup) remove_shuntsu() (SuitGroup, bool) {
+func (a *SuitGroup) remove_shuntsu() bool {
 	// 順子を除去できればtrue
 	// a is sorted
 	rest := SuitGroup{}
 	first := -1
 	second := -1
 	found := false
-	for _, v := range a {
+	for _, v := range *a {
 		if found {
 			rest = append(rest, v)
 			continue
@@ -272,7 +272,8 @@ func (a SuitGroup) remove_shuntsu() (SuitGroup, bool) {
 			rest = append(rest, v)
 		}
 	}
-	return rest, found
+	*a = rest
+	return found
 }
 
 func (a SuitGroup) pairable_numbers() SuitGroup {
