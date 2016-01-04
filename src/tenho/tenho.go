@@ -144,15 +144,16 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 
 func (m SuitsGroupedHand) valid_33332() bool {
 	for i := 0; i < 4; i++ {
-		if !valid_suit_group(m[i], i) {
+		if !m[i].valid_suit_group(i) {
 			return false
 		}
 	}
 	return true
 }
 
-func valid_suit_group(a SuitGroup, i int) bool {
-	// 第二引数は字牌のとき0
+// 33332形を形成するスートグループがどうかを判定
+func (a SuitGroup) valid_suit_group(i int) bool {
+	// 対子が含まれているスートグループがただ1つある前提
 
 	//ソート
 	sort.Ints(a)
