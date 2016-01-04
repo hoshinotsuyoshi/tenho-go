@@ -99,11 +99,11 @@ func Solve(hand Hand) bool {
 	return group_scan(matrix)
 }
 
-type Suits [][]int
+type SuitsGroupedHand [][]int
 
 // スート分類
-func (hand Hand) GroupSuit() Suits {
-	m := Suits{{}, {}, {}, {}}
+func (hand Hand) GroupSuit() SuitsGroupedHand {
+	m := SuitsGroupedHand{{}, {}, {}, {}}
 	for _, i := range hand {
 		switch {
 		case i < 7:
@@ -119,7 +119,7 @@ func (hand Hand) GroupSuit() Suits {
 	return m
 }
 
-func group_scan(m Suits) bool {
+func group_scan(m SuitsGroupedHand) bool {
 	if !valid_mod3(m) {
 		return false
 	}
@@ -129,7 +129,7 @@ func group_scan(m Suits) bool {
 	return true
 }
 
-func valid_mod3(m Suits) bool {
+func valid_mod3(m SuitsGroupedHand) bool {
 	//スートのサイズを3で割った時
 	//あまりが2であるすーとグループが1つであること
 	c := 0
@@ -146,7 +146,7 @@ func valid_mod3(m Suits) bool {
 	return c == 1
 }
 
-func valid_33332(m Suits) bool {
+func valid_33332(m SuitsGroupedHand) bool {
 	for i := 0; i < 4; i++ {
 		if !valid_suit_group(m[i], i) {
 			return false
