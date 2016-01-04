@@ -179,7 +179,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 					c--
 				}
 			}
-			if valid_3cards(rest, i) {
+			if rest.valid_3cards(i) {
 				return true
 			} else {
 				continue
@@ -187,17 +187,17 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 		}
 		return false
 	} else if len(a)%3 == 0 {
-		return valid_3cards(a, i)
+		return a.valid_3cards(i)
 	}
 	// 到達しないはず
 	panic("到達しないはず")
 }
 
-func valid_3cards(a SuitGroup, i int) bool {
+func (a SuitGroup) valid_3cards(i int) bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
-	// 第二引数は字牌のとき0
+	// 引数は字牌のとき0
 	ok := false
 	for {
 		a, ok = remove_kotsu(a)
