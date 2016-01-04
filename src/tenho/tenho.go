@@ -131,12 +131,7 @@ const (
 
 // スート分類
 func (hand Hand) GroupSuit() SuitsGroupedHand {
-	m := SuitsGroupedHand{
-		Jihai: {},
-		Manzu: {},
-		Sozu:  {},
-		Pinzu: {},
-	}
+	m := SuitsGroupedHand{}
 	for _, i := range hand {
 		quo := (i - 7 + 9) / 9
 		var mod int
