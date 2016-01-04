@@ -205,7 +205,7 @@ func (a SuitGroup) valid_3cards(i int) bool {
 			continue
 		}
 		if i > 0 {
-			a, ok = remove_shuntsu(a)
+			a, ok = a.remove_shuntsu()
 			if ok {
 				continue
 			}
@@ -228,7 +228,7 @@ func (a SuitGroup) remove_kotsu() (SuitGroup, bool) {
 	return retval, false
 }
 
-func remove_shuntsu(a SuitGroup) (SuitGroup, bool) {
+func (a SuitGroup) remove_shuntsu() (SuitGroup, bool) {
 	// 順子を除去できればtrue
 	// a is sorted
 	rest := SuitGroup{}
