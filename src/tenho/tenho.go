@@ -89,7 +89,7 @@ func (hand Hand) HaiString() string {
 }
 
 // 七対子判定
-func (hand Hand) is_chitoitsu() bool {
+func (hand Hand) solveChitoitsu() bool {
 	//カウンタ
 	c := map[int]int{}
 
@@ -115,7 +115,7 @@ func (hand Hand) is_chitoitsu() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return hand.is_chitoitsu() || hand.GroupSuit().Solve()
+	return hand.solveChitoitsu() || hand.GroupSuit().Solve()
 }
 
 type SuitGroup []int
