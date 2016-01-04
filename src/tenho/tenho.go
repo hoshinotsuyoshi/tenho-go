@@ -8,18 +8,18 @@ import (
 )
 
 func Start() {
-	start := time.Now()
+	start := time.Now().UnixNano()
 	// 処理
 	var i float64
 	i = 0
 	for {
 		i++
-		end := time.Now()
-		diff := float64(end.Sub(start) / 1000 / 1000 / 1000)
-		m := int(i / diff)
+		end := time.Now().UnixNano()
+		diff := float64(end-start) / 1000000000
+		m := i / diff
 		out := 0
 		if m >= 0 {
-			out = m
+			out = int(m)
 		}
 		fmt.Printf("\r")
 		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
@@ -29,6 +29,9 @@ func Start() {
 		hai, ok = tryOnce(seed)
 		fmt.Printf("%v", hai)
 		if ok {
+			//fmt.Printf("\r")
+			//fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
+			//fmt.Printf("%v", hai)
 			break
 		}
 	}
