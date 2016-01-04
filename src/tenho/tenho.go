@@ -93,10 +93,10 @@ func Solve(hand Hand) bool {
 	if is_chitoitsu(hand) {
 		return true
 	}
-	matrix := hand.GroupSuit()
-	//fmt.Printf("%v", matrix)
+	suit_grouped_hand := hand.GroupSuit()
+	//fmt.Printf("%v", suit_grouped_hand)
 
-	return matrix.Solve()
+	return suit_grouped_hand.Solve()
 }
 
 type SuitsGroupedHand [][]int

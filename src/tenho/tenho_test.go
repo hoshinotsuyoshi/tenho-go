@@ -19,6 +19,20 @@ func ExampleHand_GroupSuit() {
 	// [[] [4 5 3 1] [8 7 5] [6 8 0 3 6 7 2]]
 }
 
+func ExampleSuitsGroupedHand_Solve_false() {
+	hand := tenho.SuitsGroupedHand{{}, {4, 5, 3, 1}, {8, 7, 5}, {6, 8, 0, 3, 6, 7, 2}}
+	fmt.Println(hand.Solve())
+	// Output:
+	// false
+}
+
+func ExampleSuitsGroupedHand_Solve_true() {
+	hand := tenho.SuitsGroupedHand{{2, 2}, {3, 4, 5}, {7, 7, 7}, {3, 2, 1, 9, 8, 7}}
+	fmt.Println(hand.Solve())
+	// Output:
+	// true
+}
+
 func ExampleShuffledHand() {
 	var seed int64
 	seed = 1451836284287681922
