@@ -120,12 +120,12 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 }
 
 func (m SuitsGroupedHand) Solve() bool {
-	return m.valid_mod3() && m.valid_33332()
+	return m.a_pair_existible() && m.valid_33332()
 }
 
-func (m SuitsGroupedHand) valid_mod3() bool {
+func (m SuitsGroupedHand) a_pair_existible() bool {
 	//スートのサイズを3で割った時
-	//あまりが2であるすーとグループが1つであること
+	//あまりが2であるスートグループが1つであること
 	c := 0
 	for _, a := range m {
 		switch len(a) % 3 {
