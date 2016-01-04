@@ -200,7 +200,7 @@ func (a SuitGroup) valid_3cards(i int) bool {
 	// 引数は字牌のとき0
 	ok := false
 	for {
-		a, ok = remove_kotsu(a)
+		a, ok = a.remove_kotsu()
 		if ok {
 			continue
 		}
@@ -214,7 +214,7 @@ func (a SuitGroup) valid_3cards(i int) bool {
 	}
 }
 
-func remove_kotsu(a SuitGroup) (SuitGroup, bool) {
+func (a SuitGroup) remove_kotsu() (SuitGroup, bool) {
 	// 刻子を除去できればtrue
 	// a is sorted
 	retval := a
