@@ -96,7 +96,7 @@ func Solve(hand Hand) bool {
 	matrix := hand.GroupSuit()
 	//fmt.Printf("%v", matrix)
 
-	return group_scan(matrix)
+	return matrix.Solve()
 }
 
 type SuitsGroupedHand [][]int
@@ -119,7 +119,7 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 	return m
 }
 
-func group_scan(m SuitsGroupedHand) bool {
+func (m SuitsGroupedHand) Solve() bool {
 	if !valid_mod3(m) {
 		return false
 	}
