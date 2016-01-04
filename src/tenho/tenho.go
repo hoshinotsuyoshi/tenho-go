@@ -159,7 +159,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 	sort.Ints(a)
 	if len(a)%3 == 2 {
 		//ペアを探す
-		pair_numbers := pairable_numbers(a)
+		pair_numbers := a.pairable_numbers()
 		//ペア候補がなかったらぬける
 		if len(pair_numbers) == 0 {
 			return false
@@ -256,15 +256,16 @@ func (a SuitGroup) remove_shuntsu() (SuitGroup, bool) {
 	return rest, found
 }
 
-func pairable_numbers(sorted SuitGroup) SuitGroup {
+func (a SuitGroup) pairable_numbers() SuitGroup {
+	// a is sorted
 	counter := []int{}
-	a := 999 // 2つ前
-	b := 999 // 1つ前
-	for _, v := range sorted {
-		if b == v && a != v {
+	x := 999 // 2つ前
+	y := 999 // 1つ前
+	for _, v := range a {
+		if y == v && x != v {
 			counter = append(counter, v)
 		} else {
-			b = v
+			y = v
 		}
 	}
 	return counter
