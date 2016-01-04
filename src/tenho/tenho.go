@@ -35,8 +35,6 @@ func Start() {
 	fmt.Printf("\n")
 }
 
-type Hand []int
-
 func tryOnce(seed int64) (string, bool) {
 	hand := ShuffledHand(seed)
 	hai := hand.HaiString()
@@ -67,6 +65,8 @@ func ShuffledHand(seed int64) Hand {
 
 	return hand[:14]
 }
+
+type Hand []int
 
 // 牌文字への変換(スペース区切り)
 func (hand Hand) HaiString() string {
