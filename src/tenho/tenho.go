@@ -25,9 +25,11 @@ func Start() {
 		var hai string
 		var ok bool
 		hai, ok = tryOnce(seed)
-		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
+		if int(i)%10000 == 0 {
+			fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
+		}
 		if ok {
-			//fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
+			fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 			break
 		}
 	}
