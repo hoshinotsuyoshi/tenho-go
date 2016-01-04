@@ -41,23 +41,23 @@ func ExampleShuffledHand() {
 	// [31 33 25 11 12 28 10 24 31 32 23 21 8 27]
 }
 
-func ExampleSolve_false() {
+func ExampleHand_Solve_false() {
 	list := tenho.Hand{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
-	fmt.Println(tenho.Solve(list))
+	fmt.Println(list.Solve())
 	// Output:
 	// false
 }
 
-func ExampleSolve_true() {
+func ExampleHand_Solve_true() {
 	list := tenho.Hand{7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16, 17, 17}
-	fmt.Println(tenho.Solve(list))
+	fmt.Println(list.Solve())
 	// Output:
 	// true
 }
 
-func ExampleSolve_chitoitsu() {
+func ExampleHand_Solve_chitoitsu() {
 	list := tenho.Hand{0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6}
-	fmt.Println(tenho.Solve(list))
+	fmt.Println(list.Solve())
 	// Output:
 	// true
 }

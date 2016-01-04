@@ -40,7 +40,7 @@ type Hand []int
 func tryOnce(seed int64) (string, bool) {
 	hand := ShuffledHand(seed)
 	hai := hand.HaiString()
-	ok := Solve(hand)
+	ok := hand.Solve()
 	return hai, ok
 }
 
@@ -114,7 +114,7 @@ func (hand Hand) is_chitoitsu() bool {
 }
 
 // あがり判定する
-func Solve(hand Hand) bool {
+func (hand Hand) Solve() bool {
 	if hand.is_chitoitsu() {
 		return true
 	}
