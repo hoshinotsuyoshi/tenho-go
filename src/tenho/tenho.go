@@ -88,6 +88,31 @@ func (c Hand) HaiString() string {
 	return string(b)
 }
 
+// 七対子判定
+func (hand Hand) is_chitoitsu() bool {
+	//カウンタ
+	c := map[int]int{}
+
+	for _, v := range hand {
+		count, ok := c[v]
+		if ok {
+			if count == 1 {
+				c[v] = 2
+			} else {
+				// c[v] == 2
+				return false
+			}
+		} else {
+			c[v] = 1
+		}
+		//8個チェック
+		if len(c) >= 8 {
+			return false
+		}
+	}
+	return true
+}
+
 // あがり判定する
 func Solve(hand Hand) bool {
 	if hand.is_chitoitsu() {
@@ -269,28 +294,4 @@ func (a SuitGroup) pairable_numbers() SuitGroup {
 		}
 	}
 	return counter
-}
-
-func (hand Hand) is_chitoitsu() bool {
-	//カウンタ
-	c := map[int]int{}
-
-	for _, v := range hand {
-		count, ok := c[v]
-		if ok {
-			if count == 1 {
-				c[v] = 2
-			} else {
-				// c[v] == 2
-				return false
-			}
-		} else {
-			c[v] = 1
-		}
-		//8個チェック
-		if len(c) >= 8 {
-			return false
-		}
-	}
-	return true
 }
