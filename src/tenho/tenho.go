@@ -79,7 +79,7 @@ func ShuffledHand(seed int64) Hand {
 	hand2 := make(Hand, 0, 0)
 	var j int
 
-	for k := MahjongSetSize; k > 122; k-- {
+	for k := MahjongSetSize; k > MahjongSetSize-HandSize; k-- {
 		j = rand.Intn(k)
 		hand2 = append(hand2, hand[j])
 		hand = append(hand[:j], hand[j+1:]...)
