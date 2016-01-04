@@ -120,13 +120,7 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 }
 
 func (m SuitsGroupedHand) Solve() bool {
-	if !m.valid_mod3() {
-		return false
-	}
-	if !m.valid_33332() {
-		return false
-	}
-	return true
+	return m.valid_mod3() && m.valid_33332()
 }
 
 func (m SuitsGroupedHand) valid_mod3() bool {
