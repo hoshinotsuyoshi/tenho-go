@@ -99,7 +99,9 @@ func Solve(hand Hand) bool {
 	return suit_grouped_hand.Solve()
 }
 
-type SuitsGroupedHand [][]int
+type SuitGroup []int
+
+type SuitsGroupedHand []SuitGroup
 
 // スート分類
 func (hand Hand) GroupSuit() SuitsGroupedHand {
@@ -149,7 +151,7 @@ func (m SuitsGroupedHand) valid_33332() bool {
 	return true
 }
 
-func valid_suit_group(a Hand, i int) bool {
+func valid_suit_group(a SuitGroup, i int) bool {
 	// 第二引数は字牌のとき0
 
 	//ソート
@@ -164,7 +166,7 @@ func valid_suit_group(a Hand, i int) bool {
 		//ペア候補毎に繰り返し処理
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			rest := Hand{}
+			rest := SuitGroup{}
 			c := 2
 			for _, w := range a {
 				// ペア候補以外は新スライスに入れる
@@ -190,7 +192,7 @@ func valid_suit_group(a Hand, i int) bool {
 	panic("到達しないはず")
 }
 
-func valid_3cards(a Hand, i int) bool {
+func valid_3cards(a SuitGroup, i int) bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
@@ -211,7 +213,7 @@ func valid_3cards(a Hand, i int) bool {
 	}
 }
 
-func remove_kotsu(a Hand) (Hand, bool) {
+func remove_kotsu(a SuitGroup) (SuitGroup, bool) {
 	// 刻子を除去できればtrue
 	// a is sorted
 	retval := a
@@ -225,10 +227,10 @@ func remove_kotsu(a Hand) (Hand, bool) {
 	return retval, false
 }
 
-func remove_shuntsu(a Hand) (Hand, bool) {
+func remove_shuntsu(a SuitGroup) (SuitGroup, bool) {
 	// 順子を除去できればtrue
 	// a is sorted
-	rest := Hand{}
+	rest := SuitGroup{}
 	first := -1
 	second := -1
 	found := false
@@ -253,7 +255,7 @@ func remove_shuntsu(a Hand) (Hand, bool) {
 	return rest, found
 }
 
-func pairable_numbers(sorted Hand) Hand {
+func pairable_numbers(sorted SuitGroup) SuitGroup {
 	counter := []int{}
 	a := 999 // 2つ前
 	b := 999 // 1つ前
