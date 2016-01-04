@@ -217,15 +217,12 @@ func (a SuitGroup) valid_3cards(i int) bool {
 	// a is sorted
 	// a.size % 3 is0
 	// 引数は字牌のとき0
-	ok := false
 	for {
-		ok = a.remove_kotsu()
-		if ok {
+		if a.remove_kotsu() {
 			continue
 		}
 		if i > 0 {
-			ok = a.remove_shuntsu()
-			if ok {
+			if a.remove_shuntsu() {
 				continue
 			}
 		}
