@@ -55,11 +55,14 @@ func shuffle(hand Hand) {
 	}
 }
 
+const HandSize = 14
+const MahjongSetSize = 136
+
 var defaultSet []int
 
 func GetMahjongSet() []int {
 	if defaultSet == nil {
-		size := 136
+		size := MahjongSetSize
 		defaultSet = make([]int, size, size)
 		for i := 0; i < size; i++ {
 			defaultSet[i] = i / 4
@@ -71,12 +74,12 @@ func GetMahjongSet() []int {
 func ShuffledHand(seed int64) Hand {
 	rand.Seed(seed)
 
-	hand := make(Hand, 136, 136)
+	hand := make(Hand, MahjongSetSize, MahjongSetSize)
 	copy(hand, GetMahjongSet())
 	hand2 := make(Hand, 0, 0)
 	var j int
 
-	for k := 136; k >= 123; k-- {
+	for k := MahjongSetSize; k > 122; k-- {
 		j = rand.Intn(k)
 		hand2 = append(hand2, hand[j])
 		hand = append(hand[:j], hand[j+1:]...)
@@ -94,7 +97,7 @@ func (hand Hand) HaiString() string {
 	b := make([]byte, 0, 70)
 
 	// bに文字列を追加
-	for j := 0; j < 14; j++ {
+	for j := 0; j < HandSize; j++ {
 		// コードポイント上、普通の麻雀牌はU+1F000からの34個。
 		// U+1F000 is 'MAHJONG TILE EAST WIND' ('東')
 		// https://codepoints.net/U+1F000
