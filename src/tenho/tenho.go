@@ -115,13 +115,7 @@ func (hand Hand) is_chitoitsu() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	if hand.is_chitoitsu() {
-		return true
-	}
-	suit_grouped_hand := hand.GroupSuit()
-	//fmt.Printf("%v", suit_grouped_hand)
-
-	return suit_grouped_hand.Solve()
+	return hand.is_chitoitsu() || hand.GroupSuit().Solve()
 }
 
 type SuitGroup []int
