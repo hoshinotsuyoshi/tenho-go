@@ -55,16 +55,24 @@ func shuffle(hand Hand) {
 	}
 }
 
+var defaultSet []int
+
+func GetMahjongSet() []int {
+	if defaultSet == nil {
+		size := 136
+		defaultSet = make([]int, size, size)
+		for i := 0; i < size; i++ {
+			defaultSet[i] = i / 4
+		}
+	}
+	return defaultSet
+}
+
 func ShuffledHand(seed int64) Hand {
 	rand.Seed(seed)
 
-	// データ要素数指定、および初期データ作成
-	size := 136
-	hand := make(Hand, size, size)
-	for i := 0; i < size; i++ {
-		hand[i] = i / 4
-	}
-
+	hand := make(Hand, 136, 136)
+	copy(hand, GetMahjongSet())
 	hand2 := make(Hand, 0, 0)
 	var j int
 
