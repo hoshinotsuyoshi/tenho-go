@@ -69,7 +69,7 @@ func ShuffledHand(seed int64) Hand {
 }
 
 // 牌文字への変換(スペース区切り)
-func (c Hand) HaiString() string {
+func (hand Hand) HaiString() string {
 	// http://qiita.com/ruiu/items/2bb83b29baeae2433a79
 	// サイズ0、内部バッファの長さ69の[]byteの値を割り当てる
 	b := make([]byte, 0, 70)
@@ -79,7 +79,7 @@ func (c Hand) HaiString() string {
 		// コードポイント上、普通の麻雀牌はU+1F000からの34個。
 		// U+1F000 is 'MAHJONG TILE EAST WIND' ('東')
 		// https://codepoints.net/U+1F000
-		b = append(b, string(c[j]+0x1F000)...) // appendするには...が必要
+		b = append(b, string(hand[j]+0x1F000)...) // appendするには...が必要
 		// 自分のMacではスペース区切りでないとうまく表示されないためスペースを挿入する
 		// U+0020 is 'SPACE'
 		// https://codepoints.net/U+0020
