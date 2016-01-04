@@ -21,17 +21,13 @@ func Start() {
 		if m >= 0 {
 			out = int(m)
 		}
-		fmt.Printf("\r")
-		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
 		seed := time.Now().UnixNano()
 		var hai string
 		var ok bool
 		hai, ok = tryOnce(seed)
-		fmt.Printf("%v", hai)
+		fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 		if ok {
-			//fmt.Printf("\r")
-			//fmt.Printf("\r%v回試行  %v秒経過 %v回/秒", i, diff, out)
-			//fmt.Printf("%v", hai)
+			//fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 			break
 		}
 	}
