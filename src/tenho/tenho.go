@@ -90,7 +90,7 @@ func (c Hand) HaiString() string {
 
 // あがり判定する
 func Solve(hand Hand) bool {
-	if is_chitoitsu(hand) {
+	if hand.is_chitoitsu() {
 		return true
 	}
 	suit_grouped_hand := hand.GroupSuit()
@@ -271,7 +271,7 @@ func (a SuitGroup) pairable_numbers() SuitGroup {
 	return counter
 }
 
-func is_chitoitsu(hand Hand) bool {
+func (hand Hand) is_chitoitsu() bool {
 	//カウンタ
 	c := map[int]int{}
 
