@@ -261,7 +261,7 @@ func (a SuitGroup) valid_3cards(i int) bool {
 				continue
 			}
 		}
-		return len(a) == 0
+		return len(a.list()) == 0
 	}
 }
 
@@ -286,9 +286,9 @@ func (a *SuitGroup) remove_shuntsu() bool {
 	first := -1
 	second := -1
 	found := false
-	for _, v := range *a {
+	for _, v := range a.list() {
 		if found {
-			rest = append(rest, v)
+			rest.append(v)
 			continue
 		}
 		if first == -1 {
@@ -301,7 +301,7 @@ func (a *SuitGroup) remove_shuntsu() bool {
 			second = -1
 			found = true
 		} else {
-			rest = append(rest, v)
+			rest.append(v)
 		}
 	}
 	*a = rest
@@ -313,7 +313,7 @@ func (a SuitGroup) pairable_numbers() SuitGroup {
 	counter := []int{}
 	x := 999 // 2つ前
 	y := 999 // 1つ前
-	for _, v := range a {
+	for _, v := range a.list() {
 		if y == v && x != v {
 			counter = append(counter, v)
 		} else {
