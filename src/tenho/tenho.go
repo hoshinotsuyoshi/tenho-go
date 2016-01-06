@@ -140,13 +140,8 @@ func (hand Hand) Solve() bool {
 	return hand.solveChitoitsu() || hand.GroupSuit().Solve()
 }
 
-//type SuitGroup struct {
-//	cardArray
-//}
-//
-//type cardArray []int
-
 type SuitGroup []int
+
 type SuitsGroupedHand map[int]SuitGroup
 
 const (
@@ -202,15 +197,12 @@ func (m SuitsGroupedHand) valid_33332() bool {
 	return true
 }
 
-func (a SuitGroup) sort() {
-	sort.Ints(a)
-}
-
 // 33332形を形成するスートグループがどうかを判定
 func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
-	a.sort()
+	//ソート
+	sort.Ints(a)
 	if len(a)%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
