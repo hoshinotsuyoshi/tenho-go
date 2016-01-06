@@ -22,6 +22,7 @@ func ExampleHand_GroupSuit() {
 }
 */
 
+/*
 func ExampleSuitsGroupedHand_Solve_false() {
 	hand := tenho.SuitsGroupedHand{
 		tenho.Jihai: {},
@@ -45,6 +46,7 @@ func ExampleSuitsGroupedHand_Solve_true() {
 	// Output:
 	// true
 }
+*/
 
 func ExampleShuffledHand() {
 	var seed int64

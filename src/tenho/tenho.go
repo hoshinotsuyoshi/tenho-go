@@ -141,8 +141,8 @@ func (hand Hand) Solve() bool {
 }
 
 type SuitGroup struct {
-	innerList innerSuitGroup
-	color     int
+	innerSuitGroup
+	color int
 }
 
 type innerSuitGroup []int
@@ -208,12 +208,8 @@ func (m SuitsGroupedHand) valid_33332() bool {
 	return true
 }
 
-func (a SuitGroup) list() innerSuitGroup {
-	return a.innerList
-}
-
-func (a SuitGroup) append(w int) {
-	a.innerList.append(w)
+func (a innerSuitGroup) list() innerSuitGroup {
+	return a
 }
 
 func (a *innerSuitGroup) append(w int) {
@@ -228,7 +224,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 	sort.Ints(a.list())
 	if len(a.list())%3 == 2 {
 		//ペアを探す
-		pair_numbers := a.list().pairable_numbers()
+		pair_numbers := a.pairable_numbers()
 		//ペア候補がなかったらぬける
 		if len(pair_numbers) == 0 {
 			return false
@@ -280,10 +276,6 @@ func (a SuitGroup) valid_3cards(i int) bool {
 	}
 }
 
-func (a SuitGroup) remove_kotsu() bool {
-	return a.innerList.remove_kotsu()
-}
-
 func (a *innerSuitGroup) remove_kotsu() bool {
 	// 刻子を除去できればtrue
 	// a is sorted
@@ -296,10 +288,6 @@ func (a *innerSuitGroup) remove_kotsu() bool {
 		return true
 	}
 	return false
-}
-
-func (a SuitGroup) remove_shuntsu() bool {
-	return a.innerList.remove_kotsu()
 }
 
 func (a *innerSuitGroup) remove_shuntsu() bool {
