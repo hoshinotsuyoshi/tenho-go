@@ -137,6 +137,8 @@ func (hand Hand) solveChitoitsu() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
+
+	fmt.Println("hello")
 	return hand.solveChitoitsu() || hand.GroupSuit().Solve()
 }
 
@@ -172,21 +174,31 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 		} else {
 			mod = i
 		}
-		s := m[quo]
-		s.append(mod)
+		//s := m[quo]
+		//fmt.Println(s)
+		//s.append(mod)
+		//m[quo] = s
+		m[quo] = append(m[quo], mod)
+		//fmt.Println(s)
 	}
+	fmt.Println("m")
+	fmt.Println(m)
 	return m
 }
 
 func (m SuitsGroupedHand) Solve() bool {
+	fmt.Println("hello2")
 	return m.a_pair_existible() && m.valid_33332()
 }
 
 func (m SuitsGroupedHand) a_pair_existible() bool {
+	fmt.Println("hello3")
 	//スートのサイズを3で割った時
 	//あまりが2であるスートグループが1つであること
 	c := 0
+	fmt.Println(len(m))
 	for _, a := range m {
+		fmt.Println(len(a.list()) % 3)
 		switch len(a.list()) % 3 {
 		case 0:
 			// noop
@@ -196,6 +208,7 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 			c++
 		}
 	}
+	fmt.Println(c == 1)
 	return c == 1
 }
 
@@ -221,6 +234,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
 	//ソート
+	fmt.Println("hello")
 	sort.Ints(a.list())
 	if len(a.list())%3 == 2 {
 		//ペアを探す
@@ -238,7 +252,10 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 				// ペア候補以外は新スライスに入れる
 				// ペア候補は３枚目以降は新スライスに入れる
 				if w != v || c <= 0 {
+					fmt.Println(rest)
 					rest.append(w)
+					fmt.Println(rest)
+					//rest = append(rest, w)
 				}
 				if w == v {
 					c--
@@ -299,7 +316,7 @@ func (a *innerSuitGroup) remove_shuntsu() bool {
 	found := false
 	for _, v := range *a {
 		if found {
-			rest.append(v)
+			rest = append(rest, v)
 			continue
 		}
 		if first == -1 {
@@ -312,7 +329,7 @@ func (a *innerSuitGroup) remove_shuntsu() bool {
 			second = -1
 			found = true
 		} else {
-			rest.append(v)
+			rest = append(rest, v)
 		}
 	}
 	*a = rest
