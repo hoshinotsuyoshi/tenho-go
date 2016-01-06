@@ -207,7 +207,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 
 	//ソート
 	sort.Ints(a.list())
-	if len(a)%3 == 2 {
+	if len(a.list())%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
 		//ペア候補がなかったらぬける
@@ -219,7 +219,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 			//ペアとなる２枚を除去
 			rest := SuitGroup{}
 			c := 2
-			for _, w := range a {
+			for _, w := range a.list() {
 				// ペア候補以外は新スライスに入れる
 				// ペア候補は３枚目以降は新スライスに入れる
 				if w != v || c <= 0 {
@@ -236,7 +236,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 			}
 		}
 		return false
-	} else if len(a)%3 == 0 {
+	} else if len(a.list())%3 == 0 {
 		return a.valid_3cards(i)
 	}
 	// 到達しないはず
