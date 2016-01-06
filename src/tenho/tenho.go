@@ -206,12 +206,16 @@ func (a SuitGroup) sort() {
 	sort.Ints(a)
 }
 
+func (a SuitGroup) len() int {
+	return len(a)
+}
+
 // 33332形を形成するスートグループがどうかを判定
 func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
 	a.sort()
-	if len(a)%3 == 2 {
+	if a.len()%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
 		//ペア候補がなかったらぬける
