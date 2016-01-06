@@ -197,12 +197,16 @@ func (m SuitsGroupedHand) valid_33332() bool {
 	return true
 }
 
+func (a SuitGroup) list() SuitGroup {
+	return a
+}
+
 // 33332形を形成するスートグループがどうかを判定
 func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
 	//ソート
-	sort.Ints(a)
+	sort.Ints(a.list())
 	if len(a)%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
