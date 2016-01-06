@@ -201,6 +201,10 @@ func (a SuitGroup) list() SuitGroup {
 	return a
 }
 
+func (a *SuitGroup) append(w int) {
+	*a = append(*a, w)
+}
+
 // 33332形を形成するスートグループがどうかを判定
 func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
@@ -223,7 +227,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 				// ペア候補以外は新スライスに入れる
 				// ペア候補は３枚目以降は新スライスに入れる
 				if w != v || c <= 0 {
-					rest = append(rest, w)
+					rest.append(w)
 				}
 				if w == v {
 					c--
