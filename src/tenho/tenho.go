@@ -137,8 +137,6 @@ func (hand Hand) solveChitoitsu() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-
-	fmt.Println("hello")
 	return hand.solveChitoitsu() || hand.GroupSuit().Solve()
 }
 
@@ -174,31 +172,26 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 		} else {
 			mod = i
 		}
+		s := m[quo]
+		s.append(mod)
+		m[quo] = s
 		//s := m[quo]
-		//fmt.Println(s)
 		//s.append(mod)
 		//m[quo] = s
-		m[quo] = append(m[quo], mod)
-		//fmt.Println(s)
+		//m[quo] = append(m[quo], mod)
 	}
-	fmt.Println("m")
-	fmt.Println(m)
 	return m
 }
 
 func (m SuitsGroupedHand) Solve() bool {
-	fmt.Println("hello2")
 	return m.a_pair_existible() && m.valid_33332()
 }
 
 func (m SuitsGroupedHand) a_pair_existible() bool {
-	fmt.Println("hello3")
 	//スートのサイズを3で割った時
 	//あまりが2であるスートグループが1つであること
 	c := 0
-	fmt.Println(len(m))
 	for _, a := range m {
-		fmt.Println(len(a.list()) % 3)
 		switch len(a.list()) % 3 {
 		case 0:
 			// noop
@@ -208,7 +201,6 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 			c++
 		}
 	}
-	fmt.Println(c == 1)
 	return c == 1
 }
 
@@ -225,6 +217,10 @@ func (a innerSuitGroup) list() innerSuitGroup {
 	return a
 }
 
+func (a *innerSuitGroup) SetSuitGroup(b innerSuitGroup) {
+	*a = b
+}
+
 func (a *innerSuitGroup) append(w int) {
 	*a = append(*a, w)
 }
@@ -234,8 +230,8 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
 	//ソート
-	fmt.Println("hello")
 	sort.Ints(a.list())
+	//fmt.Println(a.list())
 	if len(a.list())%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
@@ -246,16 +242,13 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 		//ペア候補毎に繰り返し処理
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			rest := NewSuitGroup(0)
+			rest := NewSuitGroup(i)
 			c := 2
 			for _, w := range a.list() {
 				// ペア候補以外は新スライスに入れる
 				// ペア候補は３枚目以降は新スライスに入れる
 				if w != v || c <= 0 {
-					fmt.Println(rest)
-					rest.append(w)
-					fmt.Println(rest)
-					//rest = append(rest, w)
+					rest.SetSuitGroup(append(rest.list(), w))
 				}
 				if w == v {
 					c--
