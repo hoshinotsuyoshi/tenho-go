@@ -135,9 +135,42 @@ func (hand Hand) solveChitoitsu() bool {
 	return true
 }
 
+// 国士無双判定
+func (hand Hand) solveKokushi() bool {
+	sort.Ints(hand)
+	//比較するために配列にする
+	var a [HandSize]int
+	for i := 0; i < HandSize; i++ {
+		a[i] = hand[i]
+	}
+
+	//あがりパターン列挙
+	agaris := [13][14]int{
+		[14]int{0, 0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 4, 5, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 5, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 6, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 7, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 15, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 16, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 24, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 25, 33},
+		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33, 33},
+	}
+	for _, v := range agaris {
+		if v == a {
+			return true
+		}
+	}
+	return false
+}
+
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return hand.solveChitoitsu() || hand.GroupSuit().Solve()
+	return hand.solveKokushi() || hand.solveChitoitsu() || hand.GroupSuit().Solve()
 }
 
 type SuitGroup struct {

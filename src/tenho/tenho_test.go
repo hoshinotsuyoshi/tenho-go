@@ -80,3 +80,17 @@ func ExampleHand_Solve_chitoitsu() {
 	// Output:
 	// true
 }
+
+func ExampleHand_Solve_kokushimuso() {
+	list := tenho.Hand{0, 0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33}
+	fmt.Println(list.Solve())
+	// Output:
+	// true
+}
+
+func ExampleHand_Solve_kokushimuso2() {
+	list := tenho.Hand{0, 0, 0, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33}
+	fmt.Println(list.Solve())
+	// Output:
+	// false
+}
