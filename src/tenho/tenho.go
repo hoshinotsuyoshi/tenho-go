@@ -19,7 +19,6 @@ func Start(o OptionStruct) {
 	option = o
 
 	start := time.Now().UnixNano()
-	// 処理
 	var i float64
 	i = 0
 	for {
