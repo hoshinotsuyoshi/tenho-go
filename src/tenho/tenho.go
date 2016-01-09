@@ -276,6 +276,10 @@ func (a SuitGroup) valid_3cards() bool {
 		if a.remove_kotsu() {
 			continue
 		}
+		break
+	}
+
+	for {
 		if a.color != Jihai {
 			if a.remove_shuntsu() {
 				continue
