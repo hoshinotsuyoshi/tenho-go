@@ -52,14 +52,6 @@ func tryOnce(seed int64) (Hand, bool) {
 	return hand, ok
 }
 
-// http://d.hatena.ne.jp/hake/20150930/p1
-func shuffle(hand Hand) {
-	for i := len(hand); i > 1; i-- {
-		j := rand.Intn(i) // 0 .. i-1 の乱数発生
-		hand[i-1], hand[j] = hand[j], hand[i-1]
-	}
-}
-
 const HandSize = 14
 const MahjongSetSize = 136
 
