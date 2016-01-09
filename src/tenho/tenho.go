@@ -7,9 +7,18 @@ import (
 	"time"
 )
 
-func Start() {
+type OptionStruct struct {
+	NoKokushi   bool
+	NoChitoitsu bool
+	NoNormal    bool
+}
+
+var option OptionStruct
+
+func Start(o OptionStruct) {
+	option = o
+
 	start := time.Now().UnixNano()
-	// 処理
 	var i float64
 	i = 0
 	for {
@@ -170,7 +179,7 @@ func (hand Hand) solveKokushi() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return hand.solveKokushi() || hand.solveChitoitsu() || hand.GroupSuit().Solve()
+	return (!(option.NoKokushi) && hand.solveKokushi()) || (!(option.NoChitoitsu) && hand.solveChitoitsu()) || (!(option.NoNormal) && hand.GroupSuit().Solve())
 }
 
 type SuitGroup struct {
