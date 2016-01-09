@@ -249,8 +249,8 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 }
 
 func (m SuitsGroupedHand) valid_33332() bool {
-	for i := 0; i < 4; i++ {
-		if !m[i].valid_suit_group() {
+	for _, v := range m {
+		if !v.valid_suit_group() {
 			return false
 		}
 	}
