@@ -331,8 +331,7 @@ func (a *innerSuitGroup) remove_shuntsu() bool {
 func (a innerSuitGroup) pairable_numbers() innerSuitGroup {
 	// a is sorted
 	counter := []int{}
-	x := 999 // 2つ前
-	y := 999 // 1つ前
+	var x, y int // 2つ前と1つ前
 	for _, v := range a {
 		if y == v && x != v {
 			counter = append(counter, v)
