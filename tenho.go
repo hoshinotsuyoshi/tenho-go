@@ -6,11 +6,13 @@ import (
 )
 
 func main() {
-	flgNoKokushi := flag.Bool("no-kokushi", false, "Not apply kokushi")
-	flgNoChitoitsu := flag.Bool("no-chitoitsu", false, "Not apply chitoitsu")
-	flgNoNormal := flag.Bool("no-normal", false, "Not apply normal")
+	o := tenho.OptionStruct{
+		NoKokushi:   flag.Bool("no-kokushi", false, "Not apply kokushi"),
+		NoChitoitsu: flag.Bool("no-chitoitsu", false, "Not apply chitoitsu"),
+		NoNormal:    flag.Bool("no-normal", false, "Not apply normal"),
+	}
 
 	flag.Parse()
 
-	tenho.Start(*flgNoKokushi, *flgNoChitoitsu, *flgNoNormal)
+	tenho.Start(o)
 }

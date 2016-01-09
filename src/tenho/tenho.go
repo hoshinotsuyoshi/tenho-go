@@ -7,14 +7,16 @@ import (
 	"time"
 )
 
-var flgNoKokushi bool
-var flgNoChitoitsu bool
-var flgNoNormal bool
+type OptionStruct struct {
+	NoKokushi   *bool
+	NoChitoitsu *bool
+	NoNormal    *bool
+}
 
-func Start(k, c, n bool) {
-	flgNoKokushi = k
-	flgNoChitoitsu = c
-	flgNoNormal = n
+var option OptionStruct
+
+func Start(o OptionStruct) {
+	option = o
 
 	start := time.Now().UnixNano()
 	// 処理
@@ -178,7 +180,7 @@ func (hand Hand) solveKokushi() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return (!flgNoKokushi && hand.solveKokushi()) || (!flgNoChitoitsu && hand.solveChitoitsu()) || (!flgNoNormal && hand.GroupSuit().Solve())
+	return (!*(option.NoKokushi) && hand.solveKokushi()) || (!*(option.NoChitoitsu) && hand.solveChitoitsu()) || (!*(option.NoNormal) && hand.GroupSuit().Solve())
 }
 
 type SuitGroup struct {
