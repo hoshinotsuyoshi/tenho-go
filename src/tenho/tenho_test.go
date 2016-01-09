@@ -12,16 +12,21 @@ func ExampleHand_HaiString() {
 	// 🀟 🀡 🀙 🀋 🀌 🀜 🀊 🀘 🀟 🀠 🀗 🀕 🀈 🀛
 }
 
-/*
-mapのキーの順序をちゃんとするのが面倒
 func ExampleHand_GroupSuit() {
 	hand := tenho.Hand{31, 33, 25, 11, 12, 28, 10, 24, 31, 32, 23, 21, 8, 27}
-	fmt.Println(hand.GroupSuit())
+	group := hand.GroupSuit()
+	fmt.Println(group[0])
+	fmt.Println(group[1])
+	fmt.Println(group[2])
+	fmt.Println(group[3])
 	// Output:
-	// map[0:[] 1:[4 5 3 1] 2:[8 7 5] 3:[6 8 0 3 6 7 2]]
+	// {[] 0}
+	// {[4 5 3 1] 0}
+	// {[8 7 5] 0}
+	// {[6 8 0 3 6 7 2] 0}
 }
-*/
 
+/*
 func ExampleSuitsGroupedHand_Solve_false() {
 	hand := tenho.SuitsGroupedHand{
 		tenho.Jihai: {},
@@ -45,6 +50,7 @@ func ExampleSuitsGroupedHand_Solve_true() {
 	// Output:
 	// true
 }
+*/
 
 func ExampleShuffledHand() {
 	var seed int64

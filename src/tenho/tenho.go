@@ -140,7 +140,17 @@ func (hand Hand) Solve() bool {
 	return hand.solveChitoitsu() || hand.GroupSuit().Solve()
 }
 
-type SuitGroup []int
+type SuitGroup struct {
+	innerSuitGroup
+	color int
+}
+
+type innerSuitGroup []int
+
+func NewSuitGroup(color int) *SuitGroup {
+	s := SuitGroup{innerSuitGroup{}, color}
+	return &s
+}
 
 type SuitsGroupedHand map[int]SuitGroup
 
@@ -162,7 +172,9 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 		} else {
 			mod = i
 		}
-		m[quo] = append(m[quo], mod)
+		s := m[quo]
+		s.append(mod)
+		m[quo] = s
 	}
 	return m
 }
@@ -176,7 +188,7 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 	//あまりが2であるスートグループが1つであること
 	c := 0
 	for _, a := range m {
-		switch len(a) % 3 {
+		switch len(a.list()) % 3 {
 		case 0:
 			// noop
 		case 1:
@@ -197,13 +209,26 @@ func (m SuitsGroupedHand) valid_33332() bool {
 	return true
 }
 
+func (a innerSuitGroup) list() innerSuitGroup {
+	return a
+}
+
+func (a *innerSuitGroup) SetSuitGroup(b innerSuitGroup) {
+	*a = b
+}
+
+func (a *innerSuitGroup) append(w int) {
+	*a = append(*a, w)
+}
+
 // 33332形を形成するスートグループがどうかを判定
 func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
 	//ソート
-	sort.Ints(a)
-	if len(a)%3 == 2 {
+	sort.Ints(a.list())
+	//fmt.Println(a.list())
+	if len(a.list())%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
 		//ペア候補がなかったらぬける
@@ -213,13 +238,13 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 		//ペア候補毎に繰り返し処理
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			rest := SuitGroup{}
+			rest := NewSuitGroup(i)
 			c := 2
-			for _, w := range a {
+			for _, w := range a.list() {
 				// ペア候補以外は新スライスに入れる
 				// ペア候補は３枚目以降は新スライスに入れる
 				if w != v || c <= 0 {
-					rest = append(rest, w)
+					rest.SetSuitGroup(append(rest.list(), w))
 				}
 				if w == v {
 					c--
@@ -232,7 +257,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 			}
 		}
 		return false
-	} else if len(a)%3 == 0 {
+	} else if len(a.list())%3 == 0 {
 		return a.valid_3cards(i)
 	}
 	// 到達しないはず
@@ -253,11 +278,11 @@ func (a SuitGroup) valid_3cards(i int) bool {
 				continue
 			}
 		}
-		return len(a) == 0
+		return len(a.list()) == 0
 	}
 }
 
-func (a *SuitGroup) remove_kotsu() bool {
+func (a *innerSuitGroup) remove_kotsu() bool {
 	// 刻子を除去できればtrue
 	// a is sorted
 	x := *a
@@ -271,10 +296,10 @@ func (a *SuitGroup) remove_kotsu() bool {
 	return false
 }
 
-func (a *SuitGroup) remove_shuntsu() bool {
+func (a *innerSuitGroup) remove_shuntsu() bool {
 	// 順子を除去できればtrue
 	// a is sorted
-	rest := SuitGroup{}
+	rest := innerSuitGroup{}
 	first := -1
 	second := -1
 	found := false
@@ -300,7 +325,7 @@ func (a *SuitGroup) remove_shuntsu() bool {
 	return found
 }
 
-func (a SuitGroup) pairable_numbers() SuitGroup {
+func (a innerSuitGroup) pairable_numbers() innerSuitGroup {
 	// a is sorted
 	counter := []int{}
 	x := 999 // 2つ前
