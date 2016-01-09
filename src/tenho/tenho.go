@@ -44,11 +44,21 @@ func Start(o OptionStruct) {
 		}
 	}
 	fmt.Printf("\n")
+	fmt.Printf("%v\n", x)
+	fmt.Printf("%v\n", y)
 }
 
+var x int64
+var y int64
+
 func tryOnce(seed int64) (Hand, bool) {
+	t1 := time.Now().UnixNano()
 	hand := ShuffledHand(seed)
+	t2 := time.Now().UnixNano()
 	ok := hand.Solve()
+	t3 := time.Now().UnixNano()
+	x += (t2 - t1)
+	y += (t3 - t2)
 	return hand, ok
 }
 
