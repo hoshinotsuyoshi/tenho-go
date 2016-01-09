@@ -120,24 +120,18 @@ func (hand Hand) HaiString() string {
 
 // 七対子判定
 func (hand Hand) solveChitoitsu() bool {
-	//カウンタ
-	c := map[int]int{}
-
-	for _, v := range hand {
-		count, ok := c[v]
-		if ok {
-			if count == 1 {
-				c[v] = 2
-			} else {
-				// c[v] == 2
+	// ソート済み前提
+	// 偶数インデックスの際は右隣と等しいはず
+	// 奇数インデックスの際は右隣と等しくないはず
+	for i := 0; i < HandSize-1; i++ {
+		if i%2 == 0 {
+			if hand[i] != hand[i+1] {
 				return false
 			}
 		} else {
-			c[v] = 1
-		}
-		//8個チェック
-		if len(c) >= 8 {
-			return false
+			if hand[i] == hand[i+1] {
+				return false
+			}
 		}
 	}
 	return true
