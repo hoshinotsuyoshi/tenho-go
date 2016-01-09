@@ -76,8 +76,7 @@ func ShuffledHand(seed int64) Hand {
 		seeded = true
 	}
 
-	//hand := make([]int, MahjongSetSize, MahjongSetSize)
-	hand := make([]int, 136, 136)
+	hand := make([]int, MahjongSetSize, MahjongSetSize)
 	copy(hand, GetMahjongSet())
 	hand2 := make([]int, 0, 0)
 	var j int
