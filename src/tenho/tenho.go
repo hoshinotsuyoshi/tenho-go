@@ -93,13 +93,13 @@ func ShuffledHand(seed int64) Hand {
 	sort.Ints(hand2)
 
 	retval := *new(Hand)
-	for i := 0; i < 14; i++ {
+	for i := 0; i < HandSize; i++ {
 		retval[i] = hand2[i]
 	}
 	return retval
 }
 
-type Hand [14]int
+type Hand [HandSize]int
 
 // 牌文字への変換(スペース区切り)
 func (hand Hand) HaiString() string {
