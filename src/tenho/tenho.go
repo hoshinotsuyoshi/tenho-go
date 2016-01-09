@@ -68,8 +68,13 @@ func GetMahjongSet() []int {
 	return defaultSet
 }
 
+var seeded bool
+
 func ShuffledHand(seed int64) Hand {
-	rand.Seed(seed)
+	if !seeded {
+		rand.Seed(seed)
+		seeded = true
+	}
 
 	hand := make([]int, MahjongSetSize, MahjongSetSize)
 	copy(hand, GetMahjongSet())
