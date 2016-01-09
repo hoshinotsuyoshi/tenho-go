@@ -22,12 +22,12 @@ func Start(o OptionStruct) {
 	start := time.Now().UnixNano()
 	var i float64
 	i = 0
-	var hai string
+	var hand Hand
 	var ok bool
 	for {
 		i++
 		seed := time.Now().UnixNano()
-		hai, ok = tryOnce(seed)
+		hand, ok = tryOnce(seed)
 		if ok || int(i)%option.OutputPerTrial == 0 {
 			end := time.Now().UnixNano()
 			diff := float64(end-start) / 1000000000
@@ -36,6 +36,7 @@ func Start(o OptionStruct) {
 			if m >= 0 {
 				out = int(m)
 			}
+			hai := hand.HaiString()
 			fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 		}
 		if ok {
@@ -45,11 +46,10 @@ func Start(o OptionStruct) {
 	fmt.Printf("\n")
 }
 
-func tryOnce(seed int64) (string, bool) {
+func tryOnce(seed int64) (Hand, bool) {
 	hand := ShuffledHand(seed)
-	hai := hand.HaiString()
 	ok := hand.Solve()
-	return hai, ok
+	return hand, ok
 }
 
 // http://d.hatena.ne.jp/hake/20150930/p1
