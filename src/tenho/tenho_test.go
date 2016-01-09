@@ -57,7 +57,7 @@ func ExampleShuffledHand() {
 	seed = 1451836284287681922
 	fmt.Println(tenho.ShuffledHand(seed))
 	// Output:
-	// [14 18 9 30 30 12 29 23 10 5 28 3 11 0]
+	// [0 3 5 9 10 11 12 14 18 23 28 29 30 30]
 }
 
 func ExampleHand_Solve_false() {

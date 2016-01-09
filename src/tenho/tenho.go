@@ -79,9 +79,9 @@ func GetMahjongSet() []int {
 func ShuffledHand(seed int64) Hand {
 	rand.Seed(seed)
 
-	hand := make(Hand, MahjongSetSize, MahjongSetSize)
+	hand := make([]int, MahjongSetSize, MahjongSetSize)
 	copy(hand, GetMahjongSet())
-	hand2 := make(Hand, 0, 0)
+	hand2 := make([]int, 0, 0)
 	var j int
 
 	for k := MahjongSetSize; k > MahjongSetSize-HandSize; k-- {
@@ -90,10 +90,16 @@ func ShuffledHand(seed int64) Hand {
 		hand = append(hand[:j], hand[j+1:]...)
 	}
 
-	return hand2
+	sort.Ints(hand2)
+
+	retval := *new(Hand)
+	for i := 0; i < 14; i++ {
+		retval[i] = hand2[i]
+	}
+	return retval
 }
 
-type Hand []int
+type Hand [14]int
 
 // 牌文字への変換(スペース区切り)
 func (hand Hand) HaiString() string {
@@ -142,13 +148,6 @@ func (hand Hand) solveChitoitsu() bool {
 
 // 国士無双判定
 func (hand Hand) solveKokushi() bool {
-	sort.Ints(hand)
-	//比較するために配列にする
-	var a [HandSize]int
-	for i := 0; i < HandSize; i++ {
-		a[i] = hand[i]
-	}
-
 	//あがりパターン列挙
 	agaris := [13][14]int{
 		[14]int{0, 0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33},
@@ -166,7 +165,7 @@ func (hand Hand) solveKokushi() bool {
 		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33, 33},
 	}
 	for _, v := range agaris {
-		if v == a {
+		if v == hand {
 			return true
 		}
 	}
