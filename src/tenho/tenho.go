@@ -266,8 +266,6 @@ func (a *innerSuitGroup) append(w int) {
 func (a SuitGroup) valid_suit_group(i int) bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
-	//ソート
-	sort.Ints(a.list())
 	if len(a.list())%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
