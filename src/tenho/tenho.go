@@ -174,7 +174,14 @@ func (hand Hand) solveKokushi() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return (!(option.NoKokushi) && hand.solveKokushi()) || (!(option.NoChitoitsu) && hand.solveChitoitsu()) || (!(option.NoNormal) && hand.GroupSuit().Solve())
+	if !(option.NoKokushi) && hand.solveKokushi() {
+		return true
+	} else if !(option.NoChitoitsu) && hand.solveChitoitsu() {
+		return true
+	} else if !(option.NoNormal) && hand.GroupSuit().Solve() {
+		return true
+	}
+	return false
 }
 
 type SuitGroup struct {
