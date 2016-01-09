@@ -28,7 +28,7 @@ func Start(o OptionStruct) {
 		i++
 		seed := time.Now().UnixNano()
 		hai, ok = tryOnce(seed)
-		if int(i)%option.OutputPerTrial == 0 {
+		if ok || int(i)%option.OutputPerTrial == 0 {
 			end := time.Now().UnixNano()
 			diff := float64(end-start) / 1000000000
 			m := i / diff
@@ -39,14 +39,6 @@ func Start(o OptionStruct) {
 			fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 		}
 		if ok {
-			end := time.Now().UnixNano()
-			diff := float64(end-start) / 1000000000
-			m := i / diff
-			out := 0
-			if m >= 0 {
-				out = int(m)
-			}
-			fmt.Printf("\r%v回試行  %v秒経過 %v回/秒 %v", i, diff, out, hai)
 			break
 		}
 	}
