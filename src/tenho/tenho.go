@@ -271,7 +271,6 @@ func (a SuitGroup) valid_3cards() bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
-	// 引数は字牌のとき0
 	for {
 		if a.remove_kotsu() {
 			continue
@@ -279,14 +278,16 @@ func (a SuitGroup) valid_3cards() bool {
 		break
 	}
 
-	for {
-		if a.color != Jihai {
+	// 字牌でなければ順子チェック
+	if a.color != Jihai {
+		for {
 			if a.remove_shuntsu() {
 				continue
 			}
+			break
 		}
-		return len(a.list()) == 0
 	}
+	return len(a.list()) == 0
 }
 
 func (a *innerSuitGroup) remove_kotsu() bool {
