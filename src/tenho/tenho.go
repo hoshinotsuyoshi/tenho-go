@@ -250,7 +250,7 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 
 func (m SuitsGroupedHand) valid_33332() bool {
 	for i := 0; i < 4; i++ {
-		if !m[i].valid_suit_group(i) {
+		if !m[i].valid_suit_group() {
 			return false
 		}
 	}
@@ -270,7 +270,7 @@ func (a *innerSuitGroup) append(w int) {
 }
 
 // 33332形を形成するスートグループがどうかを判定
-func (a SuitGroup) valid_suit_group(i int) bool {
+func (a SuitGroup) valid_suit_group() bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
 	if len(a.list())%3 == 2 {
@@ -283,7 +283,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 		//ペア候補毎に繰り返し処理
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			rest := NewSuitGroup(i)
+			rest := NewSuitGroup(a.color)
 			c := 2
 			for _, w := range a.list() {
 				// ペア候補以外は新スライスに入れる
