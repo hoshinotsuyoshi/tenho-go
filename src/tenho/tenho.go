@@ -175,10 +175,6 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 		s := m[quo]
 		s.append(mod)
 		m[quo] = s
-		//s := m[quo]
-		//s.append(mod)
-		//m[quo] = s
-		//m[quo] = append(m[quo], mod)
 	}
 	return m
 }
