@@ -52,13 +52,8 @@ var x int64
 var y int64
 
 func tryOnce(seed int64) (Hand, bool) {
-	t1 := time.Now().UnixNano()
 	hand := ShuffledHand(seed)
-	t2 := time.Now().UnixNano()
 	ok := hand.Solve()
-	t3 := time.Now().UnixNano()
-	x += (t2 - t1)
-	y += (t3 - t2)
 	return hand, ok
 }
 
@@ -78,13 +73,22 @@ func GetMahjongSet() []int {
 	return defaultSet
 }
 
-func ShuffledHand(seed int64) Hand {
-	rand.Seed(seed)
+var seeded bool
 
-	hand := make([]int, MahjongSetSize, MahjongSetSize)
+func ShuffledHand(seed int64) Hand {
+	t1 := time.Now().UnixNano()
+	if !seeded {
+		rand.Seed(seed)
+		seeded = true
+	}
+
+	t2 := time.Now().UnixNano()
+	//hand := make([]int, MahjongSetSize, MahjongSetSize)
+	hand := make([]int, 136, 136)
 	copy(hand, GetMahjongSet())
 	hand2 := make([]int, 0, 0)
 	var j int
+	t3 := time.Now().UnixNano()
 
 	for k := MahjongSetSize; k > MahjongSetSize-HandSize; k-- {
 		j = rand.Intn(k)
@@ -98,6 +102,8 @@ func ShuffledHand(seed int64) Hand {
 	for i := 0; i < HandSize; i++ {
 		retval[i] = hand2[i]
 	}
+	x += (t2 - t1)
+	y += (t3 - t2)
 	return retval
 }
 
