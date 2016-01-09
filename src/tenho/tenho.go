@@ -163,7 +163,12 @@ const (
 
 // スート分類
 func (hand Hand) GroupSuit() SuitsGroupedHand {
-	m := SuitsGroupedHand{}
+	m := SuitsGroupedHand{
+		Jihai: *NewSuitGroup(Jihai),
+		Manzu: *NewSuitGroup(Manzu),
+		Sozu:  *NewSuitGroup(Sozu),
+		Pinzu: *NewSuitGroup(Pinzu),
+	}
 	for _, i := range hand {
 		quo := (i - 7 + 9) / 9
 		var mod int
@@ -182,7 +187,6 @@ func (hand Hand) GroupSuit() SuitsGroupedHand {
 func (m SuitsGroupedHand) Solve() bool {
 	return m.a_pair_existible() && m.valid_33332()
 }
-
 func (m SuitsGroupedHand) a_pair_existible() bool {
 	//スートのサイズを3で割った時
 	//あまりが2であるスートグループが1つであること
@@ -227,7 +231,6 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 
 	//ソート
 	sort.Ints(a.list())
-	//fmt.Println(a.list())
 	if len(a.list())%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
@@ -250,7 +253,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 					c--
 				}
 			}
-			if rest.valid_3cards(i) {
+			if rest.valid_3cards() {
 				return true
 			} else {
 				continue
@@ -258,28 +261,33 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 		}
 		return false
 	} else if len(a.list())%3 == 0 {
-		return a.valid_3cards(i)
+		return a.valid_3cards()
 	}
 	// 到達しないはず
 	panic("到達しないはず")
 }
 
-func (a SuitGroup) valid_3cards(i int) bool {
+func (a SuitGroup) valid_3cards() bool {
 	// 刻子や順子のみで構成されている場合true
 	// a is sorted
 	// a.size % 3 is0
-	// 引数は字牌のとき0
 	for {
 		if a.remove_kotsu() {
 			continue
 		}
-		if i > 0 {
+		break
+	}
+
+	// 字牌でなければ順子チェック
+	if a.color != Jihai {
+		for {
 			if a.remove_shuntsu() {
 				continue
 			}
+			break
 		}
-		return len(a.list()) == 0
 	}
+	return len(a.list()) == 0
 }
 
 func (a *innerSuitGroup) remove_kotsu() bool {
@@ -328,8 +336,7 @@ func (a *innerSuitGroup) remove_shuntsu() bool {
 func (a innerSuitGroup) pairable_numbers() innerSuitGroup {
 	// a is sorted
 	counter := []int{}
-	x := 999 // 2つ前
-	y := 999 // 1つ前
+	var x, y int // 2つ前と1つ前
 	for _, v := range a {
 		if y == v && x != v {
 			counter = append(counter, v)
