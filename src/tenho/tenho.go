@@ -8,9 +8,9 @@ import (
 )
 
 type OptionStruct struct {
-	NoKokushi   *bool
-	NoChitoitsu *bool
-	NoNormal    *bool
+	NoKokushi   bool
+	NoChitoitsu bool
+	NoNormal    bool
 }
 
 var option OptionStruct
@@ -179,7 +179,7 @@ func (hand Hand) solveKokushi() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return (!*(option.NoKokushi) && hand.solveKokushi()) || (!*(option.NoChitoitsu) && hand.solveChitoitsu()) || (!*(option.NoNormal) && hand.GroupSuit().Solve())
+	return (!(option.NoKokushi) && hand.solveKokushi()) || (!(option.NoChitoitsu) && hand.solveChitoitsu()) || (!(option.NoNormal) && hand.GroupSuit().Solve())
 }
 
 type SuitGroup struct {

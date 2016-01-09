@@ -6,13 +6,18 @@ import (
 )
 
 func main() {
-	o := tenho.OptionStruct{
-		NoKokushi:   flag.Bool("no-kokushi", false, "Not apply kokushi"),
-		NoChitoitsu: flag.Bool("no-chitoitsu", false, "Not apply chitoitsu"),
-		NoNormal:    flag.Bool("no-normal", false, "Not apply normal"),
-	}
+	// opt-parse
+	c := flag.Bool("no-chitoitsu", false, "Not apply chitoitsu")
+	k := flag.Bool("no-kokushi", false, "Not apply kokushi")
+	n := flag.Bool("no-normal", false, "Not apply normal")
 
 	flag.Parse()
+
+	o := tenho.OptionStruct{
+		NoChitoitsu: *c,
+		NoKokushi:   *k,
+		NoNormal:    *n,
+	}
 
 	tenho.Start(o)
 }
