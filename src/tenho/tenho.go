@@ -79,9 +79,9 @@ func GetMahjongSet() []int {
 func ShuffledHand(seed int64) Hand {
 	rand.Seed(seed)
 
-	hand := make(Hand, MahjongSetSize, MahjongSetSize)
+	hand := make([]int, MahjongSetSize, MahjongSetSize)
 	copy(hand, GetMahjongSet())
-	hand2 := make(Hand, 0, 0)
+	hand2 := make([]int, 0, 0)
 	var j int
 
 	for k := MahjongSetSize; k > MahjongSetSize-HandSize; k-- {
@@ -90,10 +90,16 @@ func ShuffledHand(seed int64) Hand {
 		hand = append(hand[:j], hand[j+1:]...)
 	}
 
-	return hand2
+	sort.Ints(hand2)
+
+	retval := *new(Hand)
+	for i := 0; i < HandSize; i++ {
+		retval[i] = hand2[i]
+	}
+	return retval
 }
 
-type Hand []int
+type Hand [HandSize]int
 
 // 牌文字への変換(スペース区切り)
 func (hand Hand) HaiString() string {
@@ -142,13 +148,6 @@ func (hand Hand) solveChitoitsu() bool {
 
 // 国士無双判定
 func (hand Hand) solveKokushi() bool {
-	sort.Ints(hand)
-	//比較するために配列にする
-	var a [HandSize]int
-	for i := 0; i < HandSize; i++ {
-		a[i] = hand[i]
-	}
-
 	//あがりパターン列挙
 	agaris := [13][14]int{
 		[14]int{0, 0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33},
@@ -166,7 +165,7 @@ func (hand Hand) solveKokushi() bool {
 		[14]int{0, 1, 2, 3, 4, 5, 6, 7, 15, 16, 24, 25, 33, 33},
 	}
 	for _, v := range agaris {
-		if v == a {
+		if v == hand {
 			return true
 		}
 	}
@@ -175,7 +174,14 @@ func (hand Hand) solveKokushi() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return (!(option.NoKokushi) && hand.solveKokushi()) || (!(option.NoChitoitsu) && hand.solveChitoitsu()) || (!(option.NoNormal) && hand.GroupSuit().Solve())
+	if !(option.NoKokushi) && hand.solveKokushi() {
+		return true
+	} else if !(option.NoChitoitsu) && hand.solveChitoitsu() {
+		return true
+	} else if !(option.NoNormal) && hand.GroupSuit().Solve() {
+		return true
+	}
+	return false
 }
 
 type SuitGroup struct {
@@ -243,8 +249,8 @@ func (m SuitsGroupedHand) a_pair_existible() bool {
 }
 
 func (m SuitsGroupedHand) valid_33332() bool {
-	for i := 0; i < 4; i++ {
-		if !m[i].valid_suit_group(i) {
+	for _, v := range m {
+		if !v.valid_suit_group() {
 			return false
 		}
 	}
@@ -264,11 +270,9 @@ func (a *innerSuitGroup) append(w int) {
 }
 
 // 33332形を形成するスートグループがどうかを判定
-func (a SuitGroup) valid_suit_group(i int) bool {
+func (a SuitGroup) valid_suit_group() bool {
 	// 対子が含まれているスートグループがただ1つある前提
 
-	//ソート
-	sort.Ints(a.list())
 	if len(a.list())%3 == 2 {
 		//ペアを探す
 		pair_numbers := a.pairable_numbers()
@@ -279,7 +283,7 @@ func (a SuitGroup) valid_suit_group(i int) bool {
 		//ペア候補毎に繰り返し処理
 		for _, v := range pair_numbers {
 			//ペアとなる２枚を除去
-			rest := NewSuitGroup(i)
+			rest := NewSuitGroup(a.color)
 			c := 2
 			for _, w := range a.list() {
 				// ペア候補以外は新スライスに入れる
