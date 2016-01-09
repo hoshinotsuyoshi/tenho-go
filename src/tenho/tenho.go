@@ -7,7 +7,15 @@ import (
 	"time"
 )
 
-func Start() {
+var flgNoKokushi bool
+var flgNoChitoitsu bool
+var flgNoNormal bool
+
+func Start(k, c, n bool) {
+	flgNoKokushi = k
+	flgNoChitoitsu = c
+	flgNoNormal = n
+
 	start := time.Now().UnixNano()
 	// 処理
 	var i float64
@@ -170,7 +178,7 @@ func (hand Hand) solveKokushi() bool {
 
 // あがり判定する
 func (hand Hand) Solve() bool {
-	return hand.solveKokushi() || hand.solveChitoitsu() || hand.GroupSuit().Solve()
+	return (!flgNoKokushi && hand.solveKokushi()) || (!flgNoChitoitsu && hand.solveChitoitsu()) || (!flgNoNormal && hand.GroupSuit().Solve())
 }
 
 type SuitGroup struct {
