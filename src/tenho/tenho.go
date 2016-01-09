@@ -44,12 +44,7 @@ func Start(o OptionStruct) {
 		}
 	}
 	fmt.Printf("\n")
-	fmt.Printf("%v\n", x)
-	fmt.Printf("%v\n", y)
 }
-
-var x int64
-var y int64
 
 func tryOnce(seed int64) (Hand, bool) {
 	hand := ShuffledHand(seed)
@@ -76,19 +71,16 @@ func GetMahjongSet() []int {
 var seeded bool
 
 func ShuffledHand(seed int64) Hand {
-	t1 := time.Now().UnixNano()
 	if !seeded {
 		rand.Seed(seed)
 		seeded = true
 	}
 
-	t2 := time.Now().UnixNano()
 	//hand := make([]int, MahjongSetSize, MahjongSetSize)
 	hand := make([]int, 136, 136)
 	copy(hand, GetMahjongSet())
 	hand2 := make([]int, 0, 0)
 	var j int
-	t3 := time.Now().UnixNano()
 
 	for k := MahjongSetSize; k > MahjongSetSize-HandSize; k-- {
 		j = rand.Intn(k)
@@ -102,8 +94,6 @@ func ShuffledHand(seed int64) Hand {
 	for i := 0; i < HandSize; i++ {
 		retval[i] = hand2[i]
 	}
-	x += (t2 - t1)
-	y += (t3 - t2)
 	return retval
 }
 
