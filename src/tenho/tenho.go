@@ -8,9 +8,10 @@ import (
 )
 
 type OptionStruct struct {
-	NoKokushi   bool
-	NoChitoitsu bool
-	NoNormal    bool
+	NoKokushi      bool
+	NoChitoitsu    bool
+	NoNormal       bool
+	OutputPerTrial int
 }
 
 var option OptionStruct
@@ -27,7 +28,7 @@ func Start(o OptionStruct) {
 		i++
 		seed := time.Now().UnixNano()
 		hai, ok = tryOnce(seed)
-		if int(i)%10000 == 0 {
+		if int(i)%option.OutputPerTrial == 0 {
 			end := time.Now().UnixNano()
 			diff := float64(end-start) / 1000000000
 			m := i / diff
