@@ -12,6 +12,7 @@ type OptionStruct struct {
 	NoChitoitsu    bool
 	NoNormal       bool
 	OutputPerTrial int
+	Seed           int64
 }
 
 var option OptionStruct
@@ -24,9 +25,14 @@ func Start(o OptionStruct) {
 	i = 0
 	var hand Hand
 	var ok bool
+	var seed int64
+	if option.Seed == 0 {
+		seed = time.Now().UnixNano()
+	} else {
+		seed = option.Seed
+	}
 	for {
 		i++
-		seed := time.Now().UnixNano()
 		hand, ok = tryOnce(seed)
 		if ok || int(i)%option.OutputPerTrial == 0 {
 			end := time.Now().UnixNano()
@@ -44,6 +50,7 @@ func Start(o OptionStruct) {
 		}
 	}
 	fmt.Printf("\n")
+	fmt.Printf("seed is %v\n", seed)
 }
 
 func tryOnce(seed int64) (Hand, bool) {
